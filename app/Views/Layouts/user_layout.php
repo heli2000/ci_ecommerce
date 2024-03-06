@@ -25,7 +25,7 @@
     </div>
     <div class="overlay-dark-sidebar"></div>
     <div class="customizer-overlay"></div>
-    <?php include('includes/Footers/footer.php') ?>
+    <?= $this->include('includes\Footers\footer.php') ?>
 </body>
 
 </html>
