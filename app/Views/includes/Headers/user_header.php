@@ -60,9 +60,9 @@
         <nav class="navbar navbar-light">
             <div class="navbar-left">
                 <div class="logo-area">
-                    <a class="navbar-brand" href="index.html">
-                        <img class="dark" src="img/logo-dark.png" alt="logo">
-                        <img class="light" src="img/logo-white.png" alt="logo">
+                    <a class="" href="<?= base_url('/') ?>">
+                        <!-- <img class="dark" src="<?= base_url('resources/img/Hex_ecommerce_logo.png') ?>" alt="logo"> -->
+                        <img class="light" src="<?= base_url('resources/img/Hex_ecommerce_logo.png') ?>" alt="logo">
                     </a>
                     <a href="#" class="sidebar-toggle">
                         <img class="svg" src="img/svg/align-center-alt.svg" alt="img"></a>
@@ -879,114 +879,16 @@
                             <i class="uil uil-search"></i>
                             <i class="uil uil-times"></i>
                         </a>
-                        <form action="/" class="search-form-topMenu">
+                        <form action="/" class="search-form-topMenu show">
                             <span class="search-icon uil uil-search"></span>
-                            <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="Search..." aria-label="Search">
+                            <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="Search Product..." aria-label="Search">
                         </form>
-                    </li>
-                    <li class="nav-message">
-                        <div class="dropdown-custom">
-                            <a href="javascript:;" class="nav-item-toggle icon-active">
-                                <img class="svg" src="img/svg/message.svg" alt="img">
-                            </a>
-                            <div class="dropdown-parent-wrapper">
-                                <div class="dropdown-wrapper">
-                                    <h2 class="dropdown-wrapper__title">Messages <span class="badge-circle badge-success ms-1">2</span></h2>
-                                    <ul>
-                                        <li class="author-online has-new-message">
-                                            <div class="user-avater">
-                                                <img src="img/team-1.png" alt="">
-                                            </div>
-                                            <div class="user-message">
-                                                <p>
-                                                    <a href="" class="subject stretched-link text-truncate" style="max-width: 180px;">Web Design</a>
-                                                    <span class="time-posted">3 hrs ago</span>
-                                                </p>
-                                                <p>
-                                                    <span class="desc text-truncate" style="max-width: 215px;">Lorem
-                                                        ipsum
-                                                        dolor amet cosec Lorem ipsum</span>
-                                                    <span class="msg-count badge-circle badge-success badge-sm">1</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="author-offline has-new-message">
-                                            <div class="user-avater">
-                                                <img src="img/team-1.png" alt="">
-                                            </div>
-                                            <div class="user-message">
-                                                <p>
-                                                    <a href="" class="subject stretched-link text-truncate" style="max-width: 180px;">Web Design</a>
-                                                    <span class="time-posted">3 hrs ago</span>
-                                                </p>
-                                                <p>
-                                                    <span class="desc text-truncate" style="max-width: 215px;">Lorem
-                                                        ipsum
-                                                        dolor amet cosec Lorem ipsum</span>
-                                                    <span class="msg-count badge-circle badge-success badge-sm">1</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="author-online has-new-message">
-                                            <div class="user-avater">
-                                                <img src="img/team-1.png" alt="">
-                                            </div>
-                                            <div class="user-message">
-                                                <p>
-                                                    <a href="" class="subject stretched-link text-truncate" style="max-width: 180px;">Web Design</a>
-                                                    <span class="time-posted">3 hrs ago</span>
-                                                </p>
-                                                <p>
-                                                    <span class="desc text-truncate" style="max-width: 215px;">Lorem
-                                                        ipsum
-                                                        dolor amet cosec Lorem ipsum</span>
-                                                    <span class="msg-count badge-circle badge-success badge-sm">1</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="author-offline">
-                                            <div class="user-avater">
-                                                <img src="img/team-1.png" alt="">
-                                            </div>
-                                            <div class="user-message">
-                                                <p>
-                                                    <a href="" class="subject stretched-link text-truncate" style="max-width: 180px;">Web Design</a>
-                                                    <span class="time-posted">3 hrs ago</span>
-                                                </p>
-                                                <p>
-                                                    <span class="desc text-truncate" style="max-width: 215px;">Lorem
-                                                        ipsum
-                                                        dolor amet cosec Lorem ipsum</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="author-offline">
-                                            <div class="user-avater">
-                                                <img src="img/team-1.png" alt="">
-                                            </div>
-                                            <div class="user-message">
-                                                <p>
-                                                    <a href="" class="subject stretched-link text-truncate" style="max-width: 180px;">Web Design</a>
-                                                    <span class="time-posted">3 hrs ago</span>
-                                                </p>
-                                                <p>
-                                                    <span class="desc text-truncate" style="max-width: 215px;">Lorem
-                                                        ipsum
-                                                        dolor amet cosec Lorem ipsum</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <a href="" class="dropdown-wrapper__more">See All Message</a>
-                                </div>
-                            </div>
-                        </div>
                     </li>
                     <!-- ends: nav-message -->
                     <li class="nav-notification">
                         <div class="dropdown-custom">
                             <a href="javascript:;" class="nav-item-toggle icon-active">
-                                <img class="svg" src="img/svg/alarm.svg" alt="img">
+                                <img class="svg" src="<?= base_url('resources/img/svg/alarm.svg') ?>" alt="img">
                             </a>
                             <div class="dropdown-parent-wrapper">
                                 <div class="dropdown-wrapper">
@@ -1069,100 +971,16 @@
                         </div>
                     </li>
                     <!-- ends: .nav-notification -->
-                    <li class="nav-settings">
-                        <div class="dropdown-custom">
-                            <a href="javascript:;" class="nav-item-toggle">
-                                <img src="img/setting.png" alt="setting">
-                            </a>
-                            <div class="dropdown-parent-wrapper">
-                                <div class="dropdown-wrapper dropdown-wrapper--large">
-                                    <ul class="list-settings">
-                                        <li class="d-flex">
-                                            <div class="me-3"><img src="img/mail.png" alt=""></div>
-                                            <div class="flex-grow-1">
-                                                <h6>
-                                                    <a href="" class="stretched-link">All Features</a>
-                                                </h6>
-                                                <p>Introducing Increment subscriptions </p>
-                                            </div>
-                                        </li>
-                                        <li class="d-flex">
-                                            <div class="me-3"><img src="img/color-palette.png" alt=""></div>
-                                            <div class="flex-grow-1">
-                                                <h6>
-                                                    <a href="" class="stretched-link">Themes</a>
-                                                </h6>
-                                                <p>Third party themes that are compatible</p>
-                                            </div>
-                                        </li>
-                                        <li class="d-flex">
-                                            <div class="me-3"><img src="img/home.png" alt=""></div>
-                                            <div class="flex-grow-1">
-                                                <h6>
-                                                    <a href="" class="stretched-link">Payments</a>
-                                                </h6>
-                                                <p>We handle billions of dollars</p>
-                                            </div>
-                                        </li>
-                                        <li class="d-flex">
-                                            <div class="me-3"><img src="img/video-camera.png" alt=""></div>
-                                            <div class="flex-grow-1">
-                                                <h6>
-                                                    <a href="" class="stretched-link">Design Mockups</a>
-                                                </h6>
-                                                <p>Share planning visuals with clients</p>
-                                            </div>
-                                        </li>
-                                        <li class="d-flex">
-                                            <div class="me-3"><img src="img/document.png" alt=""></div>
-                                            <div class="flex-grow-1">
-                                                <h6>
-                                                    <a href="" class="stretched-link">Content Planner</a>
-                                                </h6>
-                                                <p>Centralize content gethering and editing</p>
-                                            </div>
-                                        </li>
-                                        <li class="d-flex">
-                                            <div class="me-3"><img src="img/microphone.png" alt=""></div>
-                                            <div class="flex-grow-1">
-                                                <h6>
-                                                    <a href="" class="stretched-link">Diagram Maker</a>
-                                                </h6>
-                                                <p>Plan user flows & test scenarios</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <!-- ends: .nav-support -->
-                    <li class="nav-flag-select">
-                        <div class="dropdown-custom">
-                            <a href="javascript:;" class="nav-item-toggle"><img src="img/flag.png" alt="" class="rounded-circle"></a>
-                            <div class="dropdown-parent-wrapper">
-                                <div class="dropdown-wrapper dropdown-wrapper--small">
-                                    <a href=""><img src="img/eng.png" alt=""> English</a>
-                                    <a href=""><img src="img/ger.png" alt=""> German</a>
-                                    <a href=""><img src="img/spa.png" alt=""> Spanish</a>
-                                    <a href=""><img src="img/tur.png" alt=""> Turkish</a>
-                                    <a href=""><img src="img/iraq.png" alt=""> Arabic</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </li>
-                    <!-- ends: .nav-flag-select -->
                     <li class="nav-author">
                         <div class="dropdown-custom">
-                            <a href="javascript:;" class="nav-item-toggle"><img src="img/author-nav.jpg" alt="" class="rounded-circle">
+                            <a href="javascript:;" class="nav-item-toggle"><img src="<?= base_url('resources/img/author-nav.jpg') ?>" alt="" class="rounded-circle">
                                 <span class="nav-item__title">Danial<i class="las la-angle-down nav-item__arrow"></i></span>
                             </a>
                             <div class="dropdown-parent-wrapper">
                                 <div class="dropdown-wrapper">
                                     <div class="nav-author__info">
                                         <div class="author-img">
-                                            <img src="img/author-nav.jpg" alt="" class="rounded-circle">
+                                            <img src="<?= base_url('resources/img/author-nav.jpg') ?>" alt="" class="rounded-circle">
                                         </div>
                                         <div>
                                             <h6>Rabbi Islam Rony</h6>
