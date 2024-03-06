@@ -11,7 +11,7 @@
     <div class="mobile-author-actions"></div>
     <?= $this->include('includes\Headers\user_header.php') ?>
     <main class="main-content">
-    
+        <?= $this->renderSection('content') ?>
     </main>
     <div id="overlayer">
         <div class="loader-overlay">
