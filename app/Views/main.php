@@ -9,12 +9,9 @@
         </form>
     </div>
     <div class="mobile-author-actions"></div>
-    <?php
-    include('includes/Headers/user_header.php')
-    ?>
+    <?= $this->include('includes\Headers\user_header.php') ?>
     <main class="main-content">
-
-
+    
     </main>
     <div id="overlayer">
         <div class="loader-overlay">
