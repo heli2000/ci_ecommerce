@@ -29,8 +29,8 @@
                                                 <input type="text" class="form-control" id="name" placeholder="Full Name">
                                             </div>
                                             <div class="form-group mb-20">
-                                                <label for="username">username</label>
-                                                <input type="text" class="form-control" id="username" placeholder="Username">
+                                                <label for="phoneNo">Phone Number</label>
+                                                <input type="text" class="form-control" id="phoneNo" placeholder="Phone Number">
                                             </div>
                                             <div class="form-group mb-20">
                                                 <label for="email">Email Adress</label>
@@ -40,6 +40,13 @@
                                                 <label for="password-field">password</label>
                                                 <div class="position-relative">
                                                     <input id="password-field" type="password" class="form-control" name="password" placeholder="Password">
+                                                    <div class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-15">
+                                                <label for="cpassword-field">Confirm password</label>
+                                                <div class="position-relative">
+                                                    <input id="password-field" type="password" class="form-control" name="cpassword" placeholder="Confirm Password">
                                                     <div class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></div>
                                                 </div>
                                             </div>
