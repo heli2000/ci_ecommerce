@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hex Commerce</title>
 
-    <?= $this->include('includes\libraries.php') ?>
+    <?= $this->include('includes\cssLibraries.php') ?>
 
 </head>
 

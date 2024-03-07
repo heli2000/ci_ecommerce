@@ -15,6 +15,7 @@
                             <div class="edit-profile__logos">
                                 <a href="<?= base_url("/") ?>">
                                     <img class="dark" src="<?= base_url('resources/img/Hex_ecommerce_logo.png') ?>" alt="">
+                                    <img class="light" src="<?= base_url('resources/img/Hex_ecommerce_logo.png') ?>" alt="">
                                 </a>
                             </div>
                             <div class="card border-0">

@@ -31,6 +31,8 @@
             </div>
         </div>
     </footer>
+    <?= $this->include('includes\jsLibraries.php') ?>
+
 </body>
 
 </html>

@@ -9,7 +9,7 @@
         </form>
     </div>
     <div class="mobile-author-actions"></div>
-    <?= $this->include('includes\libraries.php') ?>
+    <?= $this->include('includes\cssLibraries.php') ?>
     <main class="main-content">
         <?= $this->renderSection('content') ?>
     </main>
