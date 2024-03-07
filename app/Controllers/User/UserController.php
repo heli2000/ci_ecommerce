@@ -32,7 +32,7 @@ class UserController extends BaseController
         if ($this->request->is('post')) {
             $data = [
                 'name' => $this->request->getPost('name'),
-                'phoneNumber' => (int) $this->request->getPost('phoneNo'),
+                'phoneNumber' => $this->request->getPost('phoneNumber'),
                 'email' => $this->request->getPost('email'),
                 'password' => $this->request->getPost('password'),
                 'cpassword' => $this->request->getPost('cpassword'),
@@ -40,7 +40,7 @@ class UserController extends BaseController
 
             $validationRules = [
                 'name' => 'required|max_length[200]',
-                'phoneNo' => 'required|numeric|max_length[12]',
+                'phoneNumber' => 'required|numeric|max_length[12]',
                 'email' => 'required|max_length[30]',
                 'password' => 'required|max_length[255]|min_length[8]',
                 'cpassword' => 'required|max_length[255]|matches[password]',

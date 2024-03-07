@@ -30,9 +30,9 @@
                                                 <span class="help-block"><?= $validation->showError('name') ?></span>
                                             </div>
                                             <div class="form-group mb-20">
-                                                <label for="phoneNo">Phone Number</label>
-                                                <input type="text" class="form-control" id="phoneNo" name="phoneNo" value="<?= set_value('phoneNo') ?>" placeholder="Phone Number">
-                                                <span class="help-block"><?= $validation->showError('phoneNo') ?></span>
+                                                <label for="phoneNumber">Phone Number</label>
+                                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<?= set_value('phoneNumber') ?>" placeholder="Phone Number">
+                                                <span class="help-block"><?= $validation->showError('phoneNumber') ?></span>
                                             </div>
                                             <div class="form-group mb-20">
                                                 <label for="email">Email Adress</label>
