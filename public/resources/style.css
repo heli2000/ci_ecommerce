@@ -26834,10 +26834,10 @@ body:after {
 .admin .edit-profile__logos .light {
   display: none;
 }
-.admin .edit-profile__logos img {
+/* .admin .edit-profile__logos img {
   width: 195px;
   max-width: 100%;
-}
+} */
 
 .admin-element {
   background-color: var(--color-white);
