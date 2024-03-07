@@ -30,6 +30,7 @@ abstract class BaseController extends Controller
     protected $request;
     protected $userModel;
     protected $session;
+    protected $validation;
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
@@ -53,6 +54,7 @@ abstract class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
         $this->session         = \Config\Services::session();
+        $this->validation = \Config\Services::validation();
         $this->userModel = new UserModel();
         // Preload any models, libraries, etc, here.
 

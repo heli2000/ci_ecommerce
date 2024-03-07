@@ -6,7 +6,7 @@
     <main class="main-content">
         <?= validation_list_errors() ?>
 
-        <?= form_open('/loginUser') ?>
+        <?= form_open(base_url('/loginUser')) ?>
         <div class="admin">
             <div class="container-fluid">
                 <div class="row justify-content-center">

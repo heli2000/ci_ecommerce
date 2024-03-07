@@ -4,9 +4,7 @@
 
 <body>
     <main class="main-content">
-        <?= validation_list_errors() ?>
-
-        <?= form_open('/addUser') ?>
+        <?= form_open(base_url('/register')) ?>
         <div class="admin">
             <div class="container-fluid">
                 <div class="row justify-content-center">
@@ -28,28 +26,33 @@
                                         <div class="edit-profile__body">
                                             <div class="form-group mb-20">
                                                 <label for="name">name</label>
-                                                <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
+                                                <input type="text" class="form-control" id="name" name="name" value="<?= set_value('name') ?>" placeholder="Full Name">
+                                                <span class="help-block"><?= $validation->showError('name') ?></span>
                                             </div>
                                             <div class="form-group mb-20">
                                                 <label for="phoneNo">Phone Number</label>
-                                                <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="Phone Number">
+                                                <input type="text" class="form-control" id="phoneNo" name="phoneNo" value="<?= set_value('phoneNo') ?>" placeholder="Phone Number">
+                                                <span class="help-block"><?= $validation->showError('phoneNo') ?></span>
                                             </div>
                                             <div class="form-group mb-20">
                                                 <label for="email">Email Adress</label>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="name@example.com">
+                                                <input type="text" class="form-control" id="email" name="email" value="<?= set_value('email') ?>" placeholder="name@example.com">
+                                                <span class="help-block"><?= $validation->showError('email') ?></span>
                                             </div>
                                             <div class="form-group mb-15">
                                                 <label for="password-field">password</label>
                                                 <div class="position-relative">
-                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="Password">
+                                                    <input id="password-field" type="password" class="form-control" name="password" value="<?= set_value('password') ?>" placeholder="Password">
                                                     <div class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></div>
+                                                    <span class="help-block"><?= $validation->showError('password') ?></span>
                                                 </div>
                                             </div>
                                             <div class="form-group mb-15">
                                                 <label for="cpassword-field">Confirm password</label>
                                                 <div class="position-relative">
-                                                    <input id="password-field" type="password" class="form-control" name="cpassword" placeholder="Confirm Password">
+                                                    <input id="password-field" type="password" class="form-control" name="cpassword" value="<?= set_value('cpassword') ?>" placeholder="Confirm Password">
                                                     <div class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></div>
+                                                    <span class="help-block"><?= $validation->showError('cpassword') ?></span>
                                                 </div>
                                             </div>
                                             <div class="admin-condition">
