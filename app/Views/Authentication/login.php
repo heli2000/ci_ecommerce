@@ -4,7 +4,9 @@
 
 <body>
     <main class="main-content">
+        <?= validation_list_errors() ?>
 
+        <?= form_open('/loginUser') ?>
         <div class="admin">
             <div class="container-fluid">
                 <div class="row justify-content-center">
@@ -24,8 +26,8 @@
                                 <div class="card-body">
                                     <div class="edit-profile__body">
                                         <div class="form-group mb-25">
-                                            <label for="username">Username or Email Address</label>
-                                            <input type="text" class="form-control" id="username" placeholder="name@example.com">
+                                            <label for="email">Email Address</label>
+                                            <input type="text" class="form-control" id="email" name="email" placeholder="name@example.com">
                                         </div>
                                         <div class="form-group mb-15">
                                             <label for="password-field">password</label>
@@ -65,7 +67,7 @@
                 </div>
             </div>
         </div><!-- End: .admin-element  -->
-
+        <?= form_close() ?>
     </main>
     <div id="overlayer">
         <div class="loader-overlay">

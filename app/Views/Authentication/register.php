@@ -4,7 +4,9 @@
 
 <body>
     <main class="main-content">
+        <?= validation_list_errors() ?>
 
+        <?= form_open('/addUser') ?>
         <div class="admin">
             <div class="container-fluid">
                 <div class="row justify-content-center">
@@ -26,15 +28,15 @@
                                         <div class="edit-profile__body">
                                             <div class="form-group mb-20">
                                                 <label for="name">name</label>
-                                                <input type="text" class="form-control" id="name" placeholder="Full Name">
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
                                             </div>
                                             <div class="form-group mb-20">
                                                 <label for="phoneNo">Phone Number</label>
-                                                <input type="text" class="form-control" id="phoneNo" placeholder="Phone Number">
+                                                <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="Phone Number">
                                             </div>
                                             <div class="form-group mb-20">
                                                 <label for="email">Email Adress</label>
-                                                <input type="text" class="form-control" id="email" placeholder="name@example.com">
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="name@example.com">
                                             </div>
                                             <div class="form-group mb-15">
                                                 <label for="password-field">password</label>
@@ -84,7 +86,7 @@
                 </div>
             </div>
         </div><!-- End: .admin-element  -->
-
+        <?= form_close() ?>
     </main>
     <div id="overlayer">
         <div class="loader-overlay">
