@@ -6,9 +6,25 @@ use App\Controllers\BaseController;
 
 class UserController extends BaseController
 {
-    public function login(): string
+    public function login()
     {
-        return view('Authentication\login.php');
+        if ($this->request->is('post')) {
+            $username = $this->request->getPost('email');
+            $password = $this->request->getPost('password');
+
+            $user = $this->userModel->where('email', $username)
+                ->where('password', $password)
+                ->first();
+
+            if ($user) {
+                $this->session->set('user', $user);
+                return redirect()->to(base_url('/'));
+            } else {
+                return redirect()->to('/login')->with('error', 'Invalid username or password');
+            }
+        } else if ($this->request->is('get')) {
+            return view('Authentication\login.php');
+        }
     }
 
     public function register()
@@ -24,7 +40,7 @@ class UserController extends BaseController
 
             $validationRules = [
                 'name' => 'required|max_length[200]',
-                'phoneNo' => 'required|max_length[12]',
+                'phoneNo' => 'required|numeric|max_length[12]',
                 'email' => 'required|max_length[30]',
                 'password' => 'required|max_length[255]|min_length[8]',
                 'cpassword' => 'required|max_length[255]|matches[password]',
@@ -45,23 +61,6 @@ class UserController extends BaseController
     public function forgotPassword(): string
     {
         return view('Authentication\forgotPassword.php');
-    }
-
-    public function loginUser()
-    {
-        $username = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
-
-        $user = $this->userModel->where('email', $username)
-            ->where('password', $password)
-            ->first();
-
-        if ($user) {
-            $this->session->set('user', $user);
-            return redirect()->to(base_url('/'));
-        } else {
-            return redirect()->to('/login')->with('error', 'Invalid username or password');
-        }
     }
 
     public function logout()
