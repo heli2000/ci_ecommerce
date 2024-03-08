@@ -12,10 +12,6 @@ class UserController extends BaseController
             $username = $this->request->getPost('email');
             $password = $this->request->getPost('password');
 
-            $user = $this->userModel->where('email', $username)
-                ->where('password', $password)
-                ->first();
-
             $validationRules = [
                 'email' => 'required',
                 'password' => 'required',
@@ -26,7 +22,10 @@ class UserController extends BaseController
                 return view('Authentication\login.php', ['validation' => $this->validation]);
             }
 
-            if ($user) {
+            $user = $this->userModel->where('email', $username)
+                ->first();
+
+            if ($user && $this->encrypter->decrypt(base64_decode($user['password'])) == $password) {
                 $this->session->set('user', $user);
                 return redirect()->to(base_url('/'));
             } else {
@@ -62,8 +61,10 @@ class UserController extends BaseController
                 return view('Authentication\register.php', ['validation' => $this->validation]);
             }
 
+            $data["password"] = base64_encode($this->encrypter->encrypt($data["password"]));
+
             $this->userModel->insert($data);
-            return view('Authentication\login.php');
+            return view('Authentication\login.php', ['validation' => $this->validation]);
         } else if ($this->request->is('get')) {
             return view('Authentication\register.php', ['validation' => $this->validation]);
         }

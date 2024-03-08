@@ -31,6 +31,7 @@ abstract class BaseController extends Controller
     protected $userModel;
     protected $session;
     protected $validation;
+    protected $encrypter;
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
@@ -55,6 +56,7 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
         $this->session         = \Config\Services::session();
         $this->validation = \Config\Services::validation();
+        $this->encrypter = \Config\Services::encrypter();
         $this->userModel = new UserModel();
         // Preload any models, libraries, etc, here.
 

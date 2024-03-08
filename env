@@ -89,10 +89,10 @@ CI_ENVIRONMENT = development
 # ENCRYPTION
 #--------------------------------------------------------------------
 
-# encryption.key =
-# encryption.driver = OpenSSL
-# encryption.blockSize = 16
-# encryption.digest = SHA512
+encryption.key = 'donotdissclose'
+encryption.driver = OpenSSL
+encryption.blockSize = 16
+encryption.digest = SHA512
 
 #--------------------------------------------------------------------
 # HONEYPOT
