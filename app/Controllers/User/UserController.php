@@ -16,14 +16,25 @@ class UserController extends BaseController
                 ->where('password', $password)
                 ->first();
 
+            $validationRules = [
+                'email' => 'required',
+                'password' => 'required',
+            ];
+
+            // Validate the data against the rules from UserModel
+            if (!$this->validateData(['email' => $username, 'password' => $password], $validationRules)) {
+                return view('Authentication\login.php', ['validation' => $this->validation]);
+            }
+
             if ($user) {
                 $this->session->set('user', $user);
                 return redirect()->to(base_url('/'));
             } else {
-                return redirect()->to('/login')->with('error', 'Invalid username or password');
+                $this->validation->setError('login', 'Invalid username or password');
+                return view('Authentication\login.php', ['validation' => $this->validation]);
             }
         } else if ($this->request->is('get')) {
-            return view('Authentication\login.php');
+            return view('Authentication\login.php', ['validation' => $this->validation]);
         }
     }
 

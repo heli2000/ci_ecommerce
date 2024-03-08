@@ -4,7 +4,6 @@
 
 <body>
     <main class="main-content">
-        <?= validation_list_errors() ?>
 
         <?= form_open(base_url('/login')) ?>
         <div class="admin">
@@ -24,11 +23,13 @@
                                         <h6>Sign in</h6>
                                     </div>
                                 </div>
+                                <center><span class="help-block"><?= $validation->showError('login') ?></span></center>
                                 <div class="card-body">
                                     <div class="edit-profile__body">
                                         <div class="form-group mb-25">
                                             <label for="email">Email Address</label>
                                             <input type="text" class="form-control" id="email" name="email" placeholder="name@example.com">
+                                            <span class="help-block"><?= $validation->showError('email') ?></span>
                                         </div>
                                         <div class="form-group mb-15">
                                             <label for="password-field">password</label>
@@ -36,16 +37,8 @@
                                                 <input id="password-field" type="password" class="form-control" name="password" placeholder="Password">
                                                 <div class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2">
                                                 </div>
+                                                <span class="help-block"><?= $validation->showError('password') ?></span>
                                             </div>
-                                        </div>
-                                        <div class="admin-condition">
-                                            <div class="checkbox-theme-default custom-checkbox ">
-                                                <input class="checkbox" type="checkbox" id="check-1">
-                                                <label for="check-1">
-                                                    <span class="checkbox-text">Keep me logged in</span>
-                                                </label>
-                                            </div>
-                                            <a href="<?= base_url('/forget-password') ?>">forget password?</a>
                                         </div>
                                         <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
                                             <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">

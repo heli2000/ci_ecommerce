@@ -4,7 +4,8 @@
 
 <body>
     <main class="main-content">
-        <?= form_open(base_url('/register')) ?>
+        <?= form_open(base_url('/
+        ')) ?>
         <div class="admin">
             <div class="container-fluid">
                 <div class="row justify-content-center">
