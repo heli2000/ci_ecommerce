@@ -64,6 +64,7 @@ class UserController extends BaseController
             $data["password"] = base64_encode($this->encrypter->encrypt($data["password"]));
 
             $this->userModel->insert($data);
+            session()->setFlashdata('message', 'User Register successfully you can login now!!');
             return view('Authentication\login.php', ['validation' => $this->validation]);
         } else if ($this->request->is('get')) {
             return view('Authentication\register.php', ['validation' => $this->validation]);
