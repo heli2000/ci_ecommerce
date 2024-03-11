@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Controllers\User;
+namespace App\Controllers\UserAuth;
 
 use App\Controllers\BaseController;
+
 
 class UserController extends BaseController
 {
@@ -64,8 +65,23 @@ class UserController extends BaseController
             $data["password"] = base64_encode($this->encrypter->encrypt($data["password"]));
 
             $this->userModel->insert($data);
-            session()->setFlashdata('message', 'User Register successfully you can login now!!');
-            return view('Authentication\login.php', ['validation' => $this->validation]);
+            // session()->setFlashdata('message', 'User Register successfully you can login now!!');
+            $otp = generateOTP();
+            $emailData = [
+                'emailAddress' => $data['email'],
+                'subject' => 'Verification',
+                'message' => '<p>Use <b>' . $otp . '</b> for verification of Email Address. Do not share with anyone.</p><p>
+                <p>Regards,</p>
+                <p>Hex Shopping</p></p>',
+            ];
+
+            if ($this->emailController->sendEmail($emailData)) {
+                session()->setFlashdata('message', 'OTP has been sent to your email address');
+                return view('Authentication\otpVerification.php', ['email' => $data['email']]);
+            } else {
+                $this->validation->setError('EmailFailed', 'Something went wrong. Email is not being sent please contact admin.');
+                return view('Authentication\register.php', ['validation' => $this->validation]);
+            }
         } else if ($this->request->is('get')) {
             return view('Authentication\register.php', ['validation' => $this->validation]);
         }

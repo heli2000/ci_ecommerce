@@ -7,12 +7,12 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
-$routes->get('/login', 'User\UserController::login');
-$routes->post('/login', 'User\UserController::login');
+$routes->get('/login', 'UserAuth\UserController::login');
+$routes->post('/login', 'UserAuth\UserController::login');
 
-$routes->get('/register', 'User\UserController::register');
-$routes->post('/register', 'User\UserController::register');
+$routes->get('/register', 'UserAuth\UserController::register');
+$routes->post('/register', 'UserAuth\UserController::register');
 
-$routes->get('/forget-password', 'User\UserController::forgotPassword');
+$routes->get('/forget-password', 'UserAuth\UserController::forgotPassword');
 
-$routes->get('/logout', 'User\UserController::logout');
+$routes->get('/logout', 'UserAuth\UserController::logout');

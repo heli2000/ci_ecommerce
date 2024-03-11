@@ -9,6 +9,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use App\Models\User\UserModel;
+use App\Controllers\UserAuth\EmailController;
 
 /**
  * Class BaseController
@@ -32,6 +33,7 @@ abstract class BaseController extends Controller
     protected $session;
     protected $validation;
     protected $encrypter;
+    protected $emailController;
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
@@ -58,6 +60,7 @@ abstract class BaseController extends Controller
         $this->validation = \Config\Services::validation();
         $this->encrypter = \Config\Services::encrypter();
         $this->userModel = new UserModel();
+        $this->emailController = new EmailController();
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
