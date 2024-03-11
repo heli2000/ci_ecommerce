@@ -67,6 +67,13 @@ class UserController extends BaseController
             $this->userModel->insert($data);
             // session()->setFlashdata('message', 'User Register successfully you can login now!!');
             $otp = generateOTP();
+
+            $this->otpModel->insert([
+                'email' => $data['email'],
+                'otp' => $otp,
+                'expireTime' => time() + 600,
+            ]);
+
             $emailData = [
                 'emailAddress' => $data['email'],
                 'subject' => 'Verification',
@@ -75,7 +82,7 @@ class UserController extends BaseController
                 <p>Hex Shopping</p></p>',
             ];
 
-            if ($this->emailController->sendEmail($emailData)) {
+            if ($this->emailController->sendEmail($emailData) == true) {
                 session()->setFlashdata('message', 'OTP has been sent to your email address');
                 return view('Authentication\otpVerification.php', ['email' => $data['email']]);
             } else {
@@ -87,7 +94,7 @@ class UserController extends BaseController
         }
     }
 
-    public function forgotPassword(): string
+    public function forgotPassword()
     {
         return view('Authentication\forgotPassword.php');
     }
