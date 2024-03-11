@@ -10,14 +10,22 @@
                 <div class="row justify-content-center">
                     <div class="col-xxl-3 col-xl-4 col-md-6 col-sm-8">
                         <div class="edit-profile">
-                            <div class=" alert alert-success  alert-dismissible fade show " role="alert">
-                                <div class="alert-content">
-                                    <p><?php echo session()->getFlashdata('message') ?></p>
-                                    <button type="button" class="btn-close text-capitalize" data-bs-dismiss="alert" aria-label="Close">
-                                        <img src="<?= base_url('resources/img/svg/x.svg') ?>" alt="x" class="svg" aria-hidden="true">
-                                    </button>
+                            <?php
+                            if (session()->getFlashdata('message') != null) {
+                            ?> <div class=" alert alert-success  alert-dismissible fade show " role="alert">
+                                    <div class="alert-content">
+                                        <p><?php
+                                            echo session()->getFlashdata('message');
+
+                                            ?></p>
+                                        <button type="button" class="btn-close text-capitalize" data-bs-dismiss="alert" aria-label="Close">
+                                            <img src="<?= base_url('resources/img/svg/x.svg') ?>" alt="x" class="svg" aria-hidden="true">
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php
+                            }
+                            ?>
                             <div class="edit-profile__logos">
                                 <a href="<?= base_url("/") ?>">
                                     <img class="dark" src="<?= base_url('resources/img/Hex_ecommerce_logo.png') ?>" alt="">

@@ -30,6 +30,14 @@ class User extends Migration
             'password' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
+            ],
+            'isDeleted' => [
+                'type' => 'BOOLEAN',
+                'default' => false,
+            ],
+            'isAdmin' => [
+                'type'       => 'BOOLEAN',
+                'default' => false
             ]
         ]);
         $this->forge->addKey('id', true);
