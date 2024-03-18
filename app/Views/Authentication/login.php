@@ -71,6 +71,9 @@
                                                 <span class="help-block"><?= $validation->showError('password') ?></span>
                                             </div>
                                         </div>
+                                        <div class="admin-condition">
+                                            <a href="<?= base_url('/forget-password') ?>">forget password?</a>
+                                        </div>
                                         <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
                                             <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
                                                 sign in

@@ -40,6 +40,7 @@
                                 <div class="card-body">
                                     <div class="edit-profile__body">
                                         <div class="edit-profile__body">
+                                            <span class="help-block"><?= $validation->showError('UserExist') ?></span>
                                             <div class="form-group mb-20">
                                                 <label for="name">name</label>
                                                 <input type="text" class="form-control" id="name" name="name" value="<?= set_value('name') ?>" placeholder="Full Name">

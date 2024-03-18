@@ -70,17 +70,24 @@ class UserController extends BaseController
                 return view('Authentication\register.php', ['validation' => $this->validation]);
             }
 
-            $data["password"] = base64_encode($this->encrypter->encrypt($data["password"]));
+            $existingUser = $this->userModel->where('email', $data['email'])->first();
 
-            $this->userModel->insert($data);
-
-            $insert_id = $this->userModel->insertID();
-
-            if (sendOtpAndEmail($insert_id, $data['email'], $this->otpModel, $this->emailController)) {
-                return view('Authentication\otpVerification.php', ['uid' => $insert_id, "validation" => $this->validation]);
-            } else {
-                $this->validation->setError('EmailFailed', 'Something went wrong. Email is not being sent please contact admin.');
+            if ($existingUser) {
+                $this->validation->setError('UserExist', 'User already exist, please login');
                 return view('Authentication\register.php', ['validation' => $this->validation]);
+            } else {
+                $data["password"] = base64_encode($this->encrypter->encrypt($data["password"]));
+
+                $this->userModel->insert($data);
+
+                $insert_id = $this->userModel->insertID();
+
+                if (sendOtpAndEmail($insert_id, $data['email'], $this->otpModel, $this->emailController)) {
+                    return view('Authentication\otpVerification.php', ['uid' => $insert_id, "validation" => $this->validation]);
+                } else {
+                    $this->validation->setError('EmailFailed', 'Something went wrong. Email is not being sent please contact admin.');
+                    return view('Authentication\register.php', ['validation' => $this->validation]);
+                }
             }
         } else if ($this->request->is('get')) {
             return view('Authentication\register.php', ['validation' => $this->validation]);
@@ -92,6 +99,16 @@ class UserController extends BaseController
         if ($this->request->is('post')) {
             $otp =  $this->request->getPost('otp');
             $uid =  $this->request->getPost('uid');
+
+            $validationRules = [
+                'otp' => 'required',
+            ];
+
+            // Validate the data against the rules from UserModel
+            if (!$this->validateData(['otp' => $otp], $validationRules)) {
+                return view('Authentication\forget-password.php', ['validation' => $this->validation]);
+            }
+
             $user = $this->userModel->where('id', $uid)
                 ->first();
             if (array_key_exists('resend', $this->request->getPost())) {
@@ -107,13 +124,17 @@ class UserController extends BaseController
 
                 if ($data && $data['otp'] == $otp) {
                     if ($data['expireTime'] > time()) {
+                        if ($this->request->getPost('isSetNewPass')) {
+                            session()->setFlashdata('message', 'set new password');
+                            return view('Authentication\setNewPassword.php', ['uid' => $uid, 'validation' => $this->validation]);
+                        } else {
+                            $this->userModel->set('isVerified', 1);
+                            $this->userModel->where('id', $uid);
+                            $this->userModel->update();
 
-                        $this->userModel->set('isVerified', 1);
-                        $this->userModel->where('id', $uid);
-                        $this->userModel->update();
-
-                        session()->setFlashdata('message', 'verification done successfully you can login now');
-                        return redirect()->to(base_url('/login'));
+                            session()->setFlashdata('message', 'verification done successfully you can login now');
+                            return redirect()->to(base_url('/login'));
+                        }
                     } else {
                         $this->validation->setError('otp', 'Otp is expired');
                         return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
@@ -128,7 +149,59 @@ class UserController extends BaseController
 
     public function forgotPassword()
     {
-        return view('Authentication\forgotPassword.php');
+        if ($this->request->is('post')) {
+            $email =  $this->request->getPost('email');
+            $validationRules = [
+                'email' => 'required',
+            ];
+
+            // Validate the data against the rules from UserModel
+            if (!$this->validateData(['email' => $email], $validationRules)) {
+                return view('Authentication\forget-password.php', ['validation' => $this->validation]);
+            }
+            $user = $this->userModel->where('email', $email)
+                ->first();
+
+            if ($user) {
+                if (sendOtpAndEmail($user['id'], $user['email'], $this->otpModel, $this->emailController)) {
+                    return view('Authentication\otpVerification.php', ['uid' => $user['id'], 'isSetNewPass' => true, 'validation' => $this->validation]);
+                } else {
+                    $this->validation->setError('EmailFailed', 'Something went wrong. Email is not being sent please contact admin.');
+                    return view('Authentication\forgotPassword.php', ['validation' => $this->validation]);
+                }
+            } else {
+                $this->validation->setError('UserExist', 'User is not exist, please register');
+                return view('Authentication\forgotPassword.php', ['validation' => $this->validation]);
+            }
+        } else  if ($this->request->is('get')) {
+            return view('Authentication\forgotPassword.php', ['validation' => $this->validation]);
+        }
+    }
+
+    public function setNewPassword()
+    {
+        $password =  $this->request->getPost('password');
+        $cpassword =  $this->request->getPost('cpassword');
+        $uid =  $this->request->getPost('uid');
+
+        $validationRules = [
+            'password' => 'required|max_length[255]|min_length[8]',
+            'cpassword' => 'required|max_length[255]|matches[password]',
+        ];
+
+        // Validate the data against the rules from UserModel
+        if (!$this->validateData(['password' => $password, 'cpassword' => $cpassword], $validationRules)) {
+            return view('Authentication\setNewPassword.php', ['uid' => $uid, 'validation' => $this->validation]);
+        }
+
+        $newPassword = base64_encode($this->encrypter->encrypt($password));
+
+        $this->userModel->set('password', $newPassword);
+        $this->userModel->where('id', $uid);
+        $this->userModel->update();
+
+        session()->setFlashdata('message', 'Password has been updated successfully');
+        return view('Authentication\login.php', ['validation' => $this->validation]);
     }
 
     public function logout()

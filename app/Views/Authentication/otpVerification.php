@@ -44,7 +44,8 @@
                                             <input type="text" class="form-control" id="otp" name="otp" placeholder="OTP">
                                             <span class="help-block"><?= $validation->showError('otp') ?></span>
                                             <div><span id="timerText">Resend OTP in </span><span id="timer">2:00</span></div>
-                                            <input type="hidden" class="form-control" id="uid" name="uid" placeholder="OTP" value="<?= $uid ?>">
+                                            <input type="hidden" class="form-control" id="uid" name="uid" value="<?= $uid ?>">
+                                            <input type="hidden" class="form-control" id="isSetNewPass" name="isSetNewPass" value="<?= isset($isSetNewPass) ? $isSetNewPass : false ?>">
                                         </div>
                                         <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
                                             <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn" name="verify">
