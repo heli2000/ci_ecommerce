@@ -4,7 +4,6 @@ namespace App\Controllers\UserAuth;
 
 use App\Controllers\BaseController;
 
-
 class UserController extends BaseController
 {
     public function login()
@@ -93,25 +92,36 @@ class UserController extends BaseController
         if ($this->request->is('post')) {
             $otp =  $this->request->getPost('otp');
             $uid =  $this->request->getPost('uid');
-            $data = $this->otpModel->where('userId', $uid)
+            $user = $this->userModel->where('id', $uid)
                 ->first();
-
-            if ($data && $data['otp'] == $otp) {
-                if ($data['expireTime'] > time()) {
-
-                    $this->userModel->set('isVerified', 1);
-                    $this->userModel->where('id', $uid);
-                    $this->userModel->update();
-
-                    session()->setFlashdata('message', 'verification done successfully you can login now');
-                    return redirect()->to(base_url('/login'));
+            if (array_key_exists('resend', $this->request->getPost())) {
+                if (sendOtpAndEmail($uid, $user['email'], $this->otpModel, $this->emailController)) {
+                    return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
                 } else {
-                    $this->validation->setError('otp', 'Otp is expired');
+                    $this->validation->setError('EmailFailed', 'Something went wrong. Email is not being sent please contact admin.');
                     return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
                 }
-            } else {
-                $this->validation->setError('otp', 'Invalid otp');
-                return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
+            } else if (array_key_exists('verify', $this->request->getPost())) {
+                $data = $this->otpModel->where('userId', $uid)
+                    ->first();
+
+                if ($data && $data['otp'] == $otp) {
+                    if ($data['expireTime'] > time()) {
+
+                        $this->userModel->set('isVerified', 1);
+                        $this->userModel->where('id', $uid);
+                        $this->userModel->update();
+
+                        session()->setFlashdata('message', 'verification done successfully you can login now');
+                        return redirect()->to(base_url('/login'));
+                    } else {
+                        $this->validation->setError('otp', 'Otp is expired');
+                        return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
+                    }
+                } else {
+                    $this->validation->setError('otp', 'Invalid otp');
+                    return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
+                }
             }
         }
     }

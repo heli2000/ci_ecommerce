@@ -11,6 +11,22 @@
                     <div class="col-xxl-3 col-xl-4 col-md-6 col-sm-8">
                         <div class="edit-profile">
                             <?php
+                            if ($validation->showError('EmailFailed')) {
+                            ?> <div class=" alert alert-error  alert-dismissible fade show " role="alert">
+                                    <div class="alert-content">
+                                        <p><?php
+                                            echo $validation->showError('EmailFailed');
+
+                                            ?></p>
+                                        <button type="button" class="btn-close text-capitalize" data-bs-dismiss="alert" aria-label="Close">
+                                            <img src="<?= base_url('resources/img/svg/x.svg') ?>" alt="x" class="svg" aria-hidden="true">
+                                        </button>
+                                    </div>
+                                </div>
+                            <?php
+                            }
+                            ?>
+                            <?php
                             if (session()->getFlashdata('message') != null) {
                             ?> <div class=" alert alert-success  alert-dismissible fade show " role="alert">
                                     <div class="alert-content">
