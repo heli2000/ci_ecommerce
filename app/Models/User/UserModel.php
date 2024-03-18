@@ -15,5 +15,5 @@ class UserModel extends Model
 
     protected bool $allowEmptyInserts = false;
 
-    protected $allowedFields = ['name', 'phoneNumber', 'email', 'password'];
+    protected $allowedFields = ['name', 'phoneNumber', 'email', 'password', 'isAdmin', 'isVerified'];
 }

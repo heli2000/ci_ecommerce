@@ -27,8 +27,17 @@ class UserController extends BaseController
                 ->first();
 
             if ($user && $this->encrypter->decrypt(base64_decode($user['password'])) == $password) {
-                $this->session->set('user', $user);
-                return redirect()->to(base_url('/'));
+                if ($user['isVerified'] == true) {
+                    $this->session->set('user', $user);
+                    return redirect()->to(base_url('/'));
+                } else {
+                    if (sendOtpAndEmail($user['id'], $user['email'], $this->otpModel, $this->emailController)) {
+                        return view('Authentication\otpVerification.php', ['uid' => $user['id'], "validation" => $this->validation]);
+                    } else {
+                        $this->validation->setError('EmailFailed', 'Something went wrong. Email is not being sent please contact admin.');
+                        return view('Authentication\register.php', ['validation' => $this->validation]);
+                    }
+                }
             } else {
                 $this->validation->setError('login', 'Invalid username or password');
                 return view('Authentication\login.php', ['validation' => $this->validation]);
@@ -65,32 +74,45 @@ class UserController extends BaseController
             $data["password"] = base64_encode($this->encrypter->encrypt($data["password"]));
 
             $this->userModel->insert($data);
-            // session()->setFlashdata('message', 'User Register successfully you can login now!!');
-            $otp = generateOTP();
 
-            $this->otpModel->insert([
-                'email' => $data['email'],
-                'otp' => $otp,
-                'expireTime' => time() + 600,
-            ]);
+            $insert_id = $this->userModel->insertID();
 
-            $emailData = [
-                'emailAddress' => $data['email'],
-                'subject' => 'Verification',
-                'message' => '<p>Use <b>' . $otp . '</b> for verification of Email Address. Do not share with anyone.</p><p>
-                <p>Regards,</p>
-                <p>Hex Shopping</p></p>',
-            ];
-
-            if ($this->emailController->sendEmail($emailData) == true) {
-                session()->setFlashdata('message', 'OTP has been sent to your email address');
-                return view('Authentication\otpVerification.php', ['email' => $data['email']]);
+            if (sendOtpAndEmail($insert_id, $data['email'], $this->otpModel, $this->emailController)) {
+                return view('Authentication\otpVerification.php', ['uid' => $insert_id, "validation" => $this->validation]);
             } else {
                 $this->validation->setError('EmailFailed', 'Something went wrong. Email is not being sent please contact admin.');
                 return view('Authentication\register.php', ['validation' => $this->validation]);
             }
         } else if ($this->request->is('get')) {
             return view('Authentication\register.php', ['validation' => $this->validation]);
+        }
+    }
+
+    public function otpVerify()
+    {
+        if ($this->request->is('post')) {
+            $otp =  $this->request->getPost('otp');
+            $uid =  $this->request->getPost('uid');
+            $data = $this->otpModel->where('userId', $uid)
+                ->first();
+
+            if ($data && $data['otp'] == $otp) {
+                if ($data['expireTime'] > time()) {
+
+                    $this->userModel->set('isVerified', 1);
+                    $this->userModel->where('id', $uid);
+                    $this->userModel->update();
+
+                    session()->setFlashdata('message', 'verification done successfully you can login now');
+                    return redirect()->to(base_url('/login'));
+                } else {
+                    $this->validation->setError('otp', 'Otp is expired');
+                    return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
+                }
+            } else {
+                $this->validation->setError('otp', 'Invalid otp');
+                return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
+            }
         }
     }
 

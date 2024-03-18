@@ -12,6 +12,7 @@ $routes->post('/login', 'UserAuth\UserController::login');
 
 $routes->get('/register', 'UserAuth\UserController::register');
 $routes->post('/register', 'UserAuth\UserController::register');
+$routes->post('/verify', 'UserAuth\UserController::otpVerify');
 
 $routes->get('/forget-password', 'UserAuth\UserController::forgotPassword');
 

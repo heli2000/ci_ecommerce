@@ -16,7 +16,6 @@
                                     <div class="alert-content">
                                         <p><?php
                                             echo session()->getFlashdata('message');
-
                                             ?></p>
                                         <button type="button" class="btn-close text-capitalize" data-bs-dismiss="alert" aria-label="Close">
                                             <img src="<?= base_url('resources/img/svg/x.svg') ?>" alt="x" class="svg" aria-hidden="true">
@@ -42,24 +41,21 @@
                                     <div class="edit-profile__body">
                                         <div class="form-group mb-25">
                                             <label for="otp">OTP</label>
-                                            <input type="text" class="form-control" id="otp" name="otp" placeholder="name@example.com">
-
+                                            <input type="text" class="form-control" id="otp" name="otp" placeholder="OTP">
+                                            <span class="help-block"><?= $validation->showError('otp') ?></span>
+                                            <div><span id="timerText">Resend OTP in </span><span id="timer">2:00</span></div>
+                                            <input type="hidden" class="form-control" id="uid" name="uid" placeholder="OTP" value="<?= $uid ?>">
                                         </div>
                                         <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
-                                            <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
+                                            <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn" name="verify">
                                                 Verify
+                                            </button>
+                                            <button id="resend" class="btn btn-warning btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn" name="resend">
+                                                Resend OTP
                                             </button>
                                         </div>
                                     </div>
                                 </div><!-- End: .card-body -->
-                                <div class="admin-topbar">
-                                    <p class="mb-0">
-                                        Don't have an account?
-                                        <a href="<?= base_url('/register') ?>" class="color-primary">
-                                            Sign up
-                                        </a>
-                                    </p>
-                                </div><!-- End: .admin-topbar  -->
                             </div><!-- End: .card -->
                         </div><!-- End: .edit-profile -->
                     </div><!-- End: .col-xl-5 -->
@@ -87,6 +83,56 @@
             </li>
         </ul>
     </div>
+    <script>
+        // Set the target time to 2 minutes (2 minutes * 60 seconds)
+        const targetTime = new Date().getTime() + (2 * 60 * 1000);
+
+        // Update the timer every second
+        let timerInterval;
+
+        // Start the timer when the page loads
+        startTimer();
+
+        function startTimer() {
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            document.getElementById("timer").innerText = "";
+            document.getElementById("timerText").innerText = "";
+            document.getElementById("resend").disabled = false;
+        }
+
+        function updateTimer() {
+            // Get the current time
+            const currentTime = new Date().getTime();
+
+            // Calculate the remaining time
+            const remainingTime = targetTime - currentTime;
+
+            // Convert remaining time to minutes and seconds
+            const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+            // Display the remaining time
+            document.getElementById("timer").innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // If the countdown is finished, display "Time's up!" and stop the timer
+            if (remainingTime <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById("timer").innerText = "";
+                document.getElementById("timerText").innerText = "";
+                document.getElementById("resend").disabled = false;
+            }
+        }
+
+        // Handle validation errors from CodeIgniter
+        <?php if (isset($validation) && $validation->hasError('otp')) { ?>
+            stopTimer();
+        <?php } ?>
+    </script>
+
 </body>
 
 </html>

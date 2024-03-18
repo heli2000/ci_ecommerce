@@ -15,9 +15,9 @@ class Otp extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'email' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
+            'userId' => [
+                'type'       => 'INT',
+                'constraint'     => 5,
             ],
             'otp' => [
                 'type'       => 'VARCHAR',
