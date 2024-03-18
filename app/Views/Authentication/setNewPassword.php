@@ -20,7 +20,7 @@
                             <div class="card border-0">
                                 <div class="card-header">
                                     <div class="edit-profile__title">
-                                        <h6>New Password?</h6>
+                                        <h6>New Password</h6>
                                     </div>
                                 </div>
                                 <div class="card-body">
