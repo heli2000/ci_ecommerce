@@ -11,6 +11,10 @@ class Category extends BaseController
     }
     public function addCategoryForm()
     {
-        return view("Category/add_category");
+        return view("Category/add_category", ['validation' => $this->validation]);
+    }
+    public function addCategory()
+    {
+        return view("Category/add_category", ['validation' => $this->validation]);
     }
 }

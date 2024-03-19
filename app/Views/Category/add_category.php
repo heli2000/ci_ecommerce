@@ -7,12 +7,11 @@
                 <div class="col-lg-12">
 
                     <div class="breadcrumb-main">
-                        <h4 class="text-capitalize breadcrumb-title">Form</h4>
                         <div class="breadcrumb-action justify-content-center flex-wrap">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#"><i class="uil uil-estate"></i>Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Form</li>
+                                    <li class="breadcrumb-item"><a href="<?= base_url('/') ?>"><i class="uil uil-estate"></i>Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Add Category</li>
                                 </ol>
                             </nav>
                         </div>
@@ -22,30 +21,65 @@
                 <div class="col-lg-6">
                     <div class="card card-default card-md mb-4">
                         <div class="card-header">
-                            <h6>Basic</h6>
+                            <h6>Add Category</h6>
                         </div>
                         <div class="card-body">
                             <div class="basic-form-wrapper">
 
-                                <form action="#">
-                                    <div class="form-basic">
-                                        <div class="form-group mb-25">
-                                            <label>Username or Email Address</label>
-                                            <input class="form-control form-control-lg" type="text" name="username" placeholder="name@example.com">
-                                        </div>
-                                        <div class="form-group mb-25">
-                                            <label for="password-field">Password</label>
-                                            <div class="position-relative">
-                                                <input id="password-field" type="password" class="form-control form-control-lg" name="password" value="secret">
-                                                <span class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
+                                <?= form_open(base_url('/admin/category/add')) ?>
+                                <div class="form-basic">
+                                    <div class="form-group mb-25">
+                                        <label>Category Name</label>
+                                        <input class="form-control form-control-lg" type="text" name="category_name" placeholder="category name">
+                                    </div>
+                                    <div class="form-group mb-25">
+                                        <label>Category One Line Description</label>
+                                        <input class="form-control form-control-lg" type="text" name="category_one_line_description" placeholder="One Line Description">
+                                    </div>
+                                    <div class="form-group mb-25">
+                                        <label>Category Detailed Description</label>
+                                        <input class="form-control form-control-lg" type="text" name="category_detailed_description" placeholder="Detailed Description">
+                                    </div>
+                                    <div class="form-group mb-25">
+                                        <div class="card card-default card-md mb-4">
+                                            <label>
+                                                Upload Category Image
+                                            </label>
+                                            <div class="card-body">
+                                                <div class="dm-tag-wrap">
+
+                                                    <div class="dm-upload">
+                                                        <div class="dm-upload-avatar">
+                                                            <img class="avatrSrc" src="<?= base_url('resources/img/upload.png') ?>" alt="Avatar Upload">
+                                                        </div>
+                                                        <div class="avatar-up">
+                                                            <input type="file" name="upload-avatar-input" class="upload-avatar-input">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group mb-0">
-                                            <button type="submit" class="btn btn-lg btn-primary btn-submit">Log In</button>
+                                    </div>
+                                    <div class="form-group mb-25">
+                                        <label>
+                                            Select Parent Category
+                                        </label>
+                                        <div class="dm-select ">
+                                            <select name="select-search" id="select-search" class="form-control" name="parent_category">
+                                                <option value="0">Select Parent Category</option>
+                                                <option value="02">Option 2</option>
+                                                <option value="03">Option 3</option>
+                                                <option value="04">Option 4</option>
+                                                <option value="05">Option 5</option>
+                                            </select>
                                         </div>
                                     </div>
-                                </form>
-
+                                    <div class="form-group mb-0">
+                                        <button type="submit" class="btn btn-lg btn-primary btn-submit">Save</button>
+                                    </div>
+                                </div>
+                                <?= form_close() ?>
                             </div>
                         </div>
                     </div>
