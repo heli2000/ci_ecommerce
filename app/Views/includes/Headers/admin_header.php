@@ -203,6 +203,12 @@
         <div class="sidebar sidebar-collapse" id="sidebar">
             <div class="sidebar__menu-group">
                 <ul class="sidebar_nav">
+                    <li class="">
+                        <a href="<?= base_url("/") ?>" class="<?= current_url() == base_url('/') ? 'active' : '' ?>">
+                            <span class="nav-icon uil uil-create-dashboard"></span>
+                            <span class="menu-text">Dashboard</span>
+                        </a>
+                    </li>
                     <li class="has-child <?= str_contains(current_url(), 'admin/category') ? 'open' : '' ?>">
                         <a href="#" class="<?= str_contains(current_url(), 'admin/category') ? 'open' : '' ?>">
                             <span class="nav-icon uil uil-create-dashboard"></span>

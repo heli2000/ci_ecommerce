@@ -22,7 +22,12 @@ $routes->get('/logout', 'UserAuth\UserController::logout');
 
 $routes->group('admin', static function ($routes) {
     $routes->group('category', static function ($routes) {
-        $routes->get('add', 'Category\Category::addCategoryForm');
-        $routes->post('add', 'Category\Category::addCategory');
+        $routes->get('add', 'Category\Category::addCategoryForm', ['filter' => 'adminAuth']);
+        $routes->post('add', 'Category\Category::addCategory', ['filter' => 'adminAuth']);
     });
+});
+
+
+$routes->get('/404', function () {
+    return view('404');
 });
