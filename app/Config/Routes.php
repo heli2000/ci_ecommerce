@@ -19,3 +19,10 @@ $routes->post('/forget-password', 'UserAuth\UserController::forgotPassword');
 $routes->post('/set-new-pass', 'UserAuth\UserController::setNewPassword');
 
 $routes->get('/logout', 'UserAuth\UserController::logout');
+
+$routes->group('admin', static function ($routes) {
+    $routes->group('category', static function ($routes) {
+        $routes->get('add', 'Category\Category::addCategoryForm');
+        $routes->post('add', 'Category\Category::addCategory');
+    });
+});

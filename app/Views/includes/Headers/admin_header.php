@@ -203,16 +203,15 @@
         <div class="sidebar sidebar-collapse" id="sidebar">
             <div class="sidebar__menu-group">
                 <ul class="sidebar_nav">
-                    <li class="has-child">
-                        <a href="#" class="active">
+                    <li class="has-child <?= str_contains(current_url(), 'admin/category') ? 'open' : '' ?>">
+                        <a href="#" class="<?= str_contains(current_url(), 'admin/category') ? 'open' : '' ?>">
                             <span class="nav-icon uil uil-create-dashboard"></span>
                             <span class="menu-text">Category</span>
                             <span class="toggle-icon"></span>
                         </a>
                         <ul>
-                            <li class="">
-                                <a href="demo2.html">List Category</a>
-                                <a href="demo2.html">Add Category</a>
+                            <li class="<?= current_url() == base_url('admin/category/add') ? 'active' : '' ?>">
+                                <a href="<?= base_url('admin/category/add') ?>">Add Category</a>
                             </li>
                         </ul>
                     </li>
