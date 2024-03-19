@@ -107,18 +107,16 @@ class UserController extends BaseController
 
             // Validate the data against the rules from UserModel
             if (!$this->validateData(['otp' => $otp], $validationRules)) {
-                return view('Authentication\forget-password.php', ['validation' => $this->validation]);
+                return view('Authentication\otpVerification.php', ['uid' => $uid, 'isSetNewPass' => $isSetNewPass, 'validation' => $this->validation]);
             }
 
             $user = $this->userModel->where('id', $uid)
                 ->first();
             if (array_key_exists('resend', $this->request->getPost())) {
-                if (sendOtpAndEmail($uid, $user['email'], $this->otpModel, $this->emailController)) {
-                    return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
-                } else {
+                if (!sendOtpAndEmail($uid, $user['email'], $this->otpModel, $this->emailController)) {
                     $this->validation->setError('EmailFailed', 'Something went wrong. Email is not being sent please contact admin.');
-                    return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
                 }
+                return view('Authentication\otpVerification.php', ['uid' => $uid, 'isSetNewPass' => $isSetNewPass, 'validation' => $this->validation]);
             } else if (array_key_exists('verify', $this->request->getPost())) {
                 $data = $this->otpModel->where('userId', $uid)
                     ->first();
@@ -138,19 +136,11 @@ class UserController extends BaseController
                         }
                     } else {
                         $this->validation->setError('otp', 'Otp is expired');
-                        if ($isSetNewPass) {
-                            return view('Authentication\otpVerification.php', ['uid' => $uid, 'isSetNewPass' => $isSetNewPass, 'validation' => $this->validation]);
-                        } else {
-                            return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
-                        }
+                        return view('Authentication\otpVerification.php', ['uid' => $uid, 'isSetNewPass' => $isSetNewPass, 'validation' => $this->validation]);
                     }
                 } else {
                     $this->validation->setError('otp', 'Invalid otp');
-                    if ($isSetNewPass) {
-                        return view('Authentication\otpVerification.php', ['uid' => $uid, 'isSetNewPass' => $isSetNewPass, 'validation' => $this->validation]);
-                    } else {
-                        return view('Authentication\otpVerification.php', ['uid' => $uid, 'validation' => $this->validation]);
-                    }
+                    return view('Authentication\otpVerification.php', ['uid' => $uid, 'isSetNewPass' => $isSetNewPass, 'validation' => $this->validation]);
                 }
             }
         }
