@@ -15,7 +15,10 @@ class CreateAdminSeeder extends Seeder
                 'email'    => 'admin@example.com',
                 'phoneNumber' => '1234567897',
                 'password' => base64_encode(\Config\Services::encrypter()->encrypt('admin')),
+                'isVerified' => true,
                 'isAdmin' => true,
+                'createdAt' => time(),
+                'updatedAt' => time(),
             ];
 
             // Insert the data into the 'users' table
