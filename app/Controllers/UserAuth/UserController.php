@@ -77,6 +77,8 @@ class UserController extends BaseController
                 return view('Authentication\register.php', ['validation' => $this->validation]);
             } else {
                 $data["password"] = base64_encode($this->encrypter->encrypt($data["password"]));
+                $data['createdAt'] = time();
+                $data['updatedAt'] = time();
 
                 $this->userModel->insert($data);
 
@@ -128,6 +130,7 @@ class UserController extends BaseController
                             return view('Authentication\setNewPassword.php', ['uid' => $uid, 'validation' => $this->validation]);
                         } else {
                             $this->userModel->set('isVerified', 1);
+                            $this->userModel->set('updatedAt', time());
                             $this->userModel->where('id', $uid);
                             $this->userModel->update();
 
@@ -196,6 +199,7 @@ class UserController extends BaseController
         $newPassword = base64_encode($this->encrypter->encrypt($password));
 
         $this->userModel->set('password', $newPassword);
+        $this->userModel->set('updatedAt', time());
         $this->userModel->where('id', $uid);
         $this->userModel->update();
 

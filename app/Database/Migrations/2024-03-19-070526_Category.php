@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class User extends Migration
+class Category extends Migration
 {
     public function up()
     {
@@ -19,45 +19,31 @@ class User extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'phoneNumber' => [
+            'description_one_line' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'description_detail' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'image' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'parent_category_id' => [
                 'type'           => 'INT',
-                'constraint' => '15',
-            ],
-            'email' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-            'password' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-            'isVerified' => [
-                'type' => 'BOOLEAN',
-                'default' => false,
-            ],
-            'isDeleted' => [
-                'type' => 'BOOLEAN',
-                'default' => false,
-            ],
-            'isAdmin' => [
-                'type'       => 'BOOLEAN',
-                'default' => false
-            ],
-            'createdAt' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-            'updatedAt' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
+                'constraint'     => 5,
+                'unsigned'       => true,
+            ]
         ]);
+
         $this->forge->addKey('id', true);
-        $this->forge->createTable('users');
+        $this->forge->createTable('category');
     }
 
     public function down()
     {
-        $this->forge->dropTable('users');
+        $this->forge->dropTable('category');
     }
 }
