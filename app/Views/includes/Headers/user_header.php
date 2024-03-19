@@ -936,9 +936,7 @@
                             <div class="dropdown-custom">
                                 <a href="javascript:;" class="nav-item-toggle"><img src="<?= base_url('resources/img/author-nav.jpg') ?>" alt="" class="rounded-circle">
                                     <span class="nav-item__title">
-
                                         <?php echo explode(" ", session('user')['name'])[0];
-
                                         ?>
                                         <i class="las la-angle-down nav-item__arrow"></i></span>
                                 </a>

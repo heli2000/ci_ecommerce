@@ -65,7 +65,5 @@ abstract class BaseController extends Controller
         $this->otpModel = new Otp();
         $this->emailController = new EmailController();
         // Preload any models, libraries, etc, here.
-
-        // E.g.: $this->session = \Config\Services::session();
     }
 }

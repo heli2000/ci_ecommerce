@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 
-<body class="layout-light top-menu">
+<body class="layout-light <?= session('user') && session('user')['isAdmin'] == true ? '' : 'top-menu' ?>">
     <div class="mobile-search">
         <form action="/" class="search-form">
             <img src="img/svg/search.svg" alt="search" class="svg">
@@ -9,7 +9,13 @@
         </form>
     </div>
     <div class="mobile-author-actions"></div>
-    <?= $this->include('includes\Headers\user_header.php') ?>
+    <?php
+    if (session('user') && session('user')['isAdmin'] == true) {
+        echo $this->include('includes\Headers\admin_header.php');
+    } else {
+        echo $this->include('includes\Headers\user_header.php');
+    }
+    ?>
     <main class="main-content">
         <?= $this->renderSection('content') ?>
     </main>
