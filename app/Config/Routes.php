@@ -31,3 +31,7 @@ $routes->group('admin', static function ($routes) {
 $routes->get('/404', function () {
     return view('404');
 });
+
+$routes->group('file/download', static function ($routes) {
+    $routes->get('(:any)', 'FileController::download');
+});

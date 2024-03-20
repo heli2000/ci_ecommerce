@@ -26,19 +26,22 @@
                         <div class="card-body">
                             <div class="basic-form-wrapper">
 
-                                <?= form_open(base_url('/admin/category/add')) ?>
+                                <?= form_open_multipart(base_url('/admin/category/add')) ?>
                                 <div class="form-basic">
                                     <div class="form-group mb-25">
                                         <label>Category Name</label>
-                                        <input class="form-control form-control-lg" type="text" name="category_name" placeholder="category name">
+                                        <input class="form-control form-control-lg" type="text" name="category_name" placeholder="category name" value="<?= set_value('category_name') ?>">
+                                        <span class="help-block"><?= $validation->showError('category_name') ?></span>
                                     </div>
                                     <div class="form-group mb-25">
                                         <label>Category One Line Description</label>
-                                        <input class="form-control form-control-lg" type="text" name="category_one_line_description" placeholder="One Line Description">
+                                        <input class="form-control form-control-lg" type="text" name="category_one_line_description" placeholder="One Line Description" value="<?= set_value('category_one_line_description') ?>">
+                                        <span class="help-block"><?= $validation->showError('category_one_line_description') ?></span>
                                     </div>
                                     <div class="form-group mb-25">
                                         <label>Category Detailed Description</label>
-                                        <input class="form-control form-control-lg" type="text" name="category_detailed_description" placeholder="Detailed Description">
+                                        <input class="form-control form-control-lg" type="text" name="category_detailed_description" placeholder="Detailed Description" value="<?= set_value('category_detailed_description') ?>">
+                                        <span class="help-block"><?= $validation->showError('category_detailed_description') ?></span>
                                     </div>
                                     <div class="form-group mb-25">
                                         <div class="card card-default card-md mb-4">
@@ -53,7 +56,8 @@
                                                             <img class="avatrSrc" src="<?= base_url('resources/img/upload.png') ?>" alt="Avatar Upload">
                                                         </div>
                                                         <div class="avatar-up">
-                                                            <input type="file" name="upload-avatar-input" class="upload-avatar-input">
+                                                            <input type="file" class="upload-avatar-input" name="category_image">
+                                                            <span class="help-block"><?= $validation->showError('category_image') ?></span>
                                                         </div>
                                                     </div>
 
@@ -66,13 +70,14 @@
                                             Select Parent Category
                                         </label>
                                         <div class="dm-select ">
-                                            <select name="select-search" id="select-search" class="form-control" name="parent_category">
+                                            <select id="select-search" class="form-control" name="parent_category" value="<?= set_value('parent_category') ?>">
                                                 <option value="0">Select Parent Category</option>
                                                 <option value="02">Option 2</option>
                                                 <option value="03">Option 3</option>
                                                 <option value="04">Option 4</option>
                                                 <option value="05">Option 5</option>
                                             </select>
+                                            <span class="help-block"><?= $validation->showError('parent_category') ?></span>
                                         </div>
                                     </div>
                                     <div class="form-group mb-0">
