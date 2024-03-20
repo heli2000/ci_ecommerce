@@ -1,5 +1,7 @@
 <?php
 
+use CodeIgniter\Exceptions\PageNotFoundException;
+
 if (!function_exists("generateOTP")) {
     function generateOTP($length = 6)
     {
@@ -20,13 +22,23 @@ if (!function_exists("sendOtpAndEmail")) {
         $otp = generateOTP();
         $expireTime = time() + 600;
 
-        $existingUser = $otpModel->where('userId', $userId)->first();
+        try {
+            $existingUser = $otpModel->where('userId', $userId)->first();
+        } catch (\Exception $e) {
+            log_message('error', 'Error inserting category: ' . $e->getMessage());
+            throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+        }
 
         if ($existingUser) {
-            $otpModel->set('otp', $otp);
-            $otpModel->set('expireTime', $expireTime);
-            $otpModel->where('userId', $userId);
-            $otpModel->update();
+            try {
+                $otpModel->set('otp', $otp);
+                $otpModel->set('expireTime', $expireTime);
+                $otpModel->where('userId', $userId);
+                $otpModel->update();
+            } catch (\Exception $e) {
+                log_message('error', 'Error inserting category: ' . $e->getMessage());
+                throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+            }
         } else {
             $otpModel->insert([
                 'userId' => $userId,

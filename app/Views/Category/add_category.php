@@ -25,7 +25,21 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form-wrapper">
+                                <?php
+                                if (session()->getFlashdata('message') != null) {
+                                ?> <div class=" alert alert-success  alert-dismissible fade show " role="alert">
+                                        <div class="alert-content">
+                                            <p><?php
+                                                echo session()->getFlashdata('message');
 
+                                                ?></p>
+                                            <button type="button" class="btn-close text-capitalize" data-bs-dismiss="alert" aria-label="Close">
+                                                <img src="<?= base_url('resources/img/svg/x.svg') ?>" alt="x" class="svg" aria-hidden="true">
+                                            </button>
+                                        </div>
+                                    </div>
+                                <?php
+                                } ?>
                                 <?= form_open_multipart(base_url('/admin/category/add')) ?>
                                 <div class="form-basic">
                                     <div class="form-group mb-25">

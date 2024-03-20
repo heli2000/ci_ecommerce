@@ -3,6 +3,7 @@
 namespace App\Controllers\Category;
 
 use App\Controllers\BaseController;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Category extends BaseController
 {
@@ -35,8 +36,18 @@ class Category extends BaseController
             return view('Category\add_category', ['validation' => $this->validation]);
         }
         if ($file->isValid() && !$file->hasMoved()) {
-            $file->move(WRITEPATH . 'uploads\category');
+            $path = WRITEPATH . 'uploads\category';
+            $file->move($path);
             $fileName = $file->getName();
+            $category_data['image'] = 'category/' . $fileName;
+
+            try {
+                $this->categoryModel->insert($category_data);
+            } catch (\Exception $e) {
+                log_message('error', 'Error inserting category: ' . $e->getMessage());
+                throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+            }
+            session()->setFlashdata('message', 'Category Added Successfully');
             return view('Category\add_category', ['validation' => $this->validation]);
         } else {
             $this->validation->setError('category_image', 'Category Image is required');

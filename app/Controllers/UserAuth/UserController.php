@@ -3,6 +3,7 @@
 namespace App\Controllers\UserAuth;
 
 use App\Controllers\BaseController;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class UserController extends BaseController
 {
@@ -22,8 +23,13 @@ class UserController extends BaseController
                 return view('Authentication\login.php', ['validation' => $this->validation]);
             }
 
-            $user = $this->userModel->where('email', $username)
-                ->first();
+            try {
+                $user = $this->userModel->where('email', $username)
+                    ->first();
+            } catch (\Exception $e) {
+                log_message('error', 'Error inserting category: ' . $e->getMessage());
+                throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+            }
 
             if ($user && $this->encrypter->decrypt(base64_decode($user['password'])) == $password) {
                 if ($user['isVerified'] == true) {
@@ -70,7 +76,12 @@ class UserController extends BaseController
                 return view('Authentication\register.php', ['validation' => $this->validation]);
             }
 
-            $existingUser = $this->userModel->where('email', $data['email'])->first();
+            try {
+                $existingUser = $this->userModel->where('email', $data['email'])->first();
+            } catch (\Exception $e) {
+                log_message('error', 'Error inserting category: ' . $e->getMessage());
+                throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+            }
 
             if ($existingUser) {
                 $this->validation->setError('UserExist', 'User already exist, please login');
@@ -80,7 +91,12 @@ class UserController extends BaseController
                 $data['createdAt'] = time();
                 $data['updatedAt'] = time();
 
-                $this->userModel->insert($data);
+                try {
+                    $this->userModel->insert($data);
+                } catch (\Exception $e) {
+                    log_message('error', 'Error inserting category: ' . $e->getMessage());
+                    throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+                }
 
                 $insert_id = $this->userModel->insertID();
 
@@ -112,27 +128,41 @@ class UserController extends BaseController
                 return view('Authentication\otpVerification.php', ['uid' => $uid, 'isSetNewPass' => $isSetNewPass, 'validation' => $this->validation]);
             }
 
-            $user = $this->userModel->where('id', $uid)
-                ->first();
+            try {
+                $user = $this->userModel->where('id', $uid)
+                    ->first();
+            } catch (\Exception $e) {
+                log_message('error', 'Error inserting category: ' . $e->getMessage());
+                throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+            }
             if (array_key_exists('resend', $this->request->getPost())) {
                 if (!sendOtpAndEmail($uid, $user['email'], $this->otpModel, $this->emailController)) {
                     $this->validation->setError('EmailFailed', 'Something went wrong. Email is not being sent please contact admin.');
                 }
                 return view('Authentication\otpVerification.php', ['uid' => $uid, 'isSetNewPass' => $isSetNewPass, 'validation' => $this->validation]);
             } else if (array_key_exists('verify', $this->request->getPost())) {
-                $data = $this->otpModel->where('userId', $uid)
-                    ->first();
-
+                try {
+                    $data = $this->otpModel->where('userId', $uid)
+                        ->first();
+                } catch (\Exception $e) {
+                    log_message('error', 'Error inserting category: ' . $e->getMessage());
+                    throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+                }
                 if ($data && $data['otp'] == $otp) {
                     if ($data['expireTime'] > time()) {
                         if ($isSetNewPass) {
                             session()->setFlashdata('message', 'set new password');
                             return view('Authentication\setNewPassword.php', ['uid' => $uid, 'validation' => $this->validation]);
                         } else {
-                            $this->userModel->set('isVerified', 1);
-                            $this->userModel->set('updatedAt', time());
-                            $this->userModel->where('id', $uid);
-                            $this->userModel->update();
+                            try {
+                                $this->userModel->set('isVerified', 1);
+                                $this->userModel->set('updatedAt', time());
+                                $this->userModel->where('id', $uid);
+                                $this->userModel->update();
+                            } catch (\Exception $e) {
+                                log_message('error', 'Error inserting category: ' . $e->getMessage());
+                                throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+                            }
 
                             session()->setFlashdata('message', 'verification done successfully you can login now');
                             return redirect()->to(base_url('/login'));
@@ -161,8 +191,13 @@ class UserController extends BaseController
             if (!$this->validateData(['email' => $email], $validationRules)) {
                 return view('Authentication\forget-password.php', ['validation' => $this->validation]);
             }
-            $user = $this->userModel->where('email', $email)
-                ->first();
+            try {
+                $user = $this->userModel->where('email', $email)
+                    ->first();
+            } catch (\Exception $e) {
+                log_message('error', 'Error inserting category: ' . $e->getMessage());
+                throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+            }
 
             if ($user) {
                 if (sendOtpAndEmail($user['id'], $user['email'], $this->otpModel, $this->emailController)) {
@@ -198,10 +233,16 @@ class UserController extends BaseController
 
         $newPassword = base64_encode($this->encrypter->encrypt($password));
 
-        $this->userModel->set('password', $newPassword);
-        $this->userModel->set('updatedAt', time());
-        $this->userModel->where('id', $uid);
-        $this->userModel->update();
+
+        try {
+            $this->userModel->set('password', $newPassword);
+            $this->userModel->set('updatedAt', time());
+            $this->userModel->where('id', $uid);
+            $this->userModel->update();
+        } catch (\Exception $e) {
+            log_message('error', 'Error inserting category: ' . $e->getMessage());
+            throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+        }
 
         session()->setFlashdata('message', 'Password has been updated successfully');
         return view('Authentication\login.php', ['validation' => $this->validation]);
