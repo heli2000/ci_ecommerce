@@ -22,10 +22,15 @@
                     <div class="card card-default card-md mb-4">
                         <div class="card-header">
                             <h6>Add Category</h6>
+                            <a type="button" class="btn btn-sm btn-primary me-0 radius-md" href="<?= base_url("/admin/category/get") ?>">
+                                <span class="toggle-icon"></span>Go to List</a>
                         </div>
                         <div class="card-body">
                             <div class="basic-form-wrapper">
                                 <?php
+
+                                use PhpParser\Node\Expr\Print_;
+
                                 if (session()->getFlashdata('message') != null) {
                                 ?> <div class=" alert alert-success  alert-dismissible fade show " role="alert">
                                         <div class="alert-content">
@@ -86,10 +91,14 @@
                                         <div class="dm-select ">
                                             <select id="select-search" class="form-control" name="parent_category" value="<?= set_value('parent_category') ?>">
                                                 <option value="0">Select Parent Category</option>
-                                                <option value="02">Option 2</option>
-                                                <option value="03">Option 3</option>
-                                                <option value="04">Option 4</option>
-                                                <option value="05">Option 5</option>
+                                                <?php
+                                                if (isset($category_list)) {
+                                                    foreach ($category_list as $category) {
+                                                ?><option value="<?= $category->id ?>"><?= $category->name ?></option>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                             <span class="help-block"><?= $validation->showError('parent_category') ?></span>
                                         </div>

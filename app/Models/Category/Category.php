@@ -31,4 +31,18 @@ class Category extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getCategoryList()
+    {
+        $query = $this->db->table('category')
+            ->select('id, name')
+            ->get();
+
+        return $query->getResult();
+    }
+
+    public function getAllCategories()
+    {
+        return $this->findAll();
+    }
 }

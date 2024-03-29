@@ -10,7 +10,6 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use App\Models\User\UserModel;
 use App\Models\User\Otp;
-use App\Models\Category\Category;
 use App\Controllers\UserAuth\EmailController;
 
 /**
@@ -33,7 +32,6 @@ abstract class BaseController extends Controller
     protected $request;
     protected $userModel;
     protected $otpModel;
-    protected $categoryModel;
     protected $session;
     protected $validation;
     protected $encrypter;
@@ -65,7 +63,6 @@ abstract class BaseController extends Controller
         $this->encrypter = \Config\Services::encrypter();
         $this->userModel = new UserModel();
         $this->otpModel = new Otp();
-        $this->categoryModel = new Category();
         $this->emailController = new EmailController();
         // Preload any models, libraries, etc, here.
     }
