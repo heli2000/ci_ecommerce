@@ -25,6 +25,7 @@ $routes->group('admin', static function ($routes) {
         $routes->get('add', 'Category\Category::addCategoryForm', ['filter' => 'adminAuth']);
         $routes->post('add', 'Category\Category::addCategory', ['filter' => 'adminAuth']);
         $routes->get('get', 'Category\Category::category_list', ['filter' => 'adminAuth']);
+        $routes->get('arrange', 'Category\Category::arrange_category', ['filter' => 'adminAuth']);
     });
 });
 

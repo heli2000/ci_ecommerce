@@ -41,6 +41,15 @@ class Category extends Model
         return $query->getResult();
     }
 
+    public function getCategoryListWithParentId()
+    {
+        $query = $this->db->table('category')
+            ->select('id, name, parent_category_id')
+            ->get();
+
+        return $query->getResult();
+    }
+
     public function getAllCategories()
     {
         return $this->findAll();

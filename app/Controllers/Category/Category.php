@@ -73,4 +73,10 @@ class Category extends BaseController
         $category_data = $this->categoryModel->getAllCategories();
         return view('Category\list_category', ['category_data' => $category_data]);
     }
+
+    public function arrange_category()
+    {
+        $category_data = $this->categoryModel->getCategoryListWithParentId();
+        return view('Category\arrange_category', ['category_data' => $category_data]);
+    }
 }

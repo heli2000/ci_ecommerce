@@ -1609,4 +1609,11 @@
       constrainInput: true
     });
   });
+  
+  $('#nestable').nestable({
+    maxDepth: 10 // Adjust as needed,
+  }).on('change', function() {
+    var serializedData = window.JSON.stringify($('#nestable').nestable('serialize'));
+    console.log(serializedData);
+  });
 })(jQuery);

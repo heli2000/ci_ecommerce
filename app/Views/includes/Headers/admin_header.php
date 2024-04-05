@@ -219,6 +219,9 @@
                             <li class="<?= current_url() == base_url('admin/category/get') ? 'active' : '' ?>">
                                 <a href="<?= base_url('admin/category/get') ?>">List Category</a>
                             </li>
+                            <li class="<?= current_url() == base_url('admin/category/arrange') ? 'active' : '' ?>">
+                                <a href="<?= base_url('admin/category/arrange') ?>">Arrange Category</a>
+                            </li>
                             <li class="<?= current_url() == base_url('admin/category/add') ? 'active' : '' ?>">
                                 <a href="<?= base_url('admin/category/add') ?>">Add Category</a>
                             </li>
