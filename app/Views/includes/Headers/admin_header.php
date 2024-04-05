@@ -15,7 +15,7 @@
         <nav class="navbar navbar-light">
             <div class="navbar-left">
                 <div class="logo-area">
-                    <a class="" href="index.html">
+                    <a class="" href="<?= base_url("/") ?>">
                         <img class="light" src="<?= base_url('resources/img/Hex_ecommerce_logo.png') ?>" alt="logo">
                     </a>
                     <a href="#" class="sidebar-toggle">

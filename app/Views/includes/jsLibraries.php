@@ -44,4 +44,5 @@
 <script src="<?= base_url('resources/assets/theme_assets/js/jvectormap-init.js') ?>"></script>
 <script src="<?= base_url('resources/assets/theme_assets/js/leaflet-init.js') ?>"></script>
 <script src="<?= base_url('resources/assets/theme_assets/js/main.js') ?>"></script>
+<script src="<?= base_url('resources/assets/custom_assets/nestable/js/jquery.nestable.min') ?>"></script>
 <!-- endinject-->

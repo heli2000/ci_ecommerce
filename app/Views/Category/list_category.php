@@ -69,12 +69,6 @@
                                     <th scope="col">
                                         <span class="userDatatable-title">Description</span>
                                     </th>
-                                    <th scope="col">
-                                        <span class="userDatatable-title">Wallet Balance</span>
-                                    </th>
-                                    <th scope="col">
-                                        <span class="userDatatable-title float-end">Create Date</span>
-                                    </th>
                                     <th scope="col" class="text-end">
                                         <span class="userDatatable-title ">Actions</span>
                                     </th>

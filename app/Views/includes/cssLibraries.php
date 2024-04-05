@@ -36,6 +36,8 @@
 
 <link rel="stylesheet" href="<?= base_url('resources/assets/vendor_assets/css/wickedpicker.min.css') ?>">
 
+<link rel="stylesheet" href="<?= base_url('resources/assets/custom_assets/nestable/css/jquery.nestable.min.css') ?>">
+
 <link rel="stylesheet" href="<?= base_url('resources/style.css') ?>">
 
 <!-- endinject -->
