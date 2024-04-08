@@ -77,6 +77,26 @@ class Category extends BaseController
     public function arrange_category()
     {
         $category_data = $this->categoryModel->getCategoryListWithParentId();
-        return view('Category\arrange_category', ['category_data' => $category_data]);
+
+        $parentCategories = [];
+        $childCategories = [];
+
+        foreach ($category_data as $category) {
+            if ($category->parent_category_id == 0) {
+                $parentCategories[$category->id] = $category;
+            } else {
+                $childCategories[$category->parent_category_id][] = $category;
+            }
+        }
+
+        foreach ($parentCategories as $parentId => $parentCategory) {
+            if (isset($childCategories[$parentId])) {
+                $parentCategories[$parentId]->children = $childCategories[$parentId];
+            }
+        }
+
+        $hierarchicalCategories = array_values($parentCategories);
+
+        return view('Category\arrange_category', ['category_data' => $hierarchicalCategories]);
     }
 }

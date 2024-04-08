@@ -30963,3 +30963,35 @@ body:after {
 .help-block{
   color:red;
 }
+
+#nestable .dd {
+    max-width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#nestable .dd-item {
+    display: block;
+    margin: 0 0 3px 0;
+    padding: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    border: 1px solid #eeecff;
+    background: #eeecff;
+}
+
+#nestable .dd-item>button {
+  color: #ffffff;
+}
+
+#nestable .dd-handle {
+    display: block;
+    margin: 0;
+    padding: 5px 10px;
+    color: #ffffff;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    background: #8231d3;
+    cursor: pointer;
+}
