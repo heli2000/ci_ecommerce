@@ -4,6 +4,8 @@ namespace App\Controllers\Category;
 
 use App\Controllers\BaseController;
 use App\Models\Category\Category as CategoryModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
+
 
 class ArrangeCategory extends BaseController
 {
@@ -19,30 +21,31 @@ class ArrangeCategory extends BaseController
     {
         $category_data = $this->categoryModel->getCategoryListWithParentId();
 
-        $parentCategories = [];
-        $childCategories = [];
-
-        foreach ($category_data as $category) {
-            if ($category->parent_category_id == 0) {
-                $parentCategories[$category->id] = $category;
-            } else {
-                $childCategories[$category->parent_category_id][] = $category;
-            }
-        }
-
-        foreach ($parentCategories as $parentId => $parentCategory) {
-            if (isset($childCategories[$parentId])) {
-                $parentCategories[$parentId]->children = $childCategories[$parentId];
-            }
-        }
-
-        $hierarchicalCategories = array_values($parentCategories);
+        $hierarchicalCategories = buildHierarchy($category_data);
 
         return view('Category\arrange_category', ['category_data' => $hierarchicalCategories]);
     }
 
     public function update_category_sequence()
     {
-        exit("here");
+        $data = $this->request->getPost('sequence_obj');
+        $array = json_decode($data, true);
+
+        if ($array && count($array)) {
+            $output = rearrangeCategories($array);
+
+            try {
+                foreach ($output as  $value) {
+                    $this->categoryModel->set('parent_category_id', $value['parent_id']);
+                    $this->categoryModel->set('sorting_order', $value['weight']);
+                    $this->categoryModel->where('id', $value['id']);
+                    $this->categoryModel->update();
+                }
+            } catch (\Exception $e) {
+                log_message('error', 'Error updating category: ' . $e->getMessage());
+                throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+            }
+        }
+        return redirect()->to(base_url('/admin/category/arrange'));
     }
 }

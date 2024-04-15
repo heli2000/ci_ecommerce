@@ -55,6 +55,9 @@ class AddCategory extends BaseController
             $fileName = $file->getName();
             $category_data['image'] = 'category/' . $fileName;
 
+            $sort_count = $this->categoryModel->getMaxSortingCount() + 1;
+            $category_data['sorting_order'] = $sort_count;
+
             try {
                 $this->categoryModel->insert($category_data);
             } catch (\Exception $e) {

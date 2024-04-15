@@ -45,6 +45,7 @@ class Category extends Model
     {
         $query = $this->db->table('category')
             ->select('id, name, parent_category_id', 'sorting_order')
+            ->orderBy('sorting_order', 'ASC')
             ->get();
 
         return $query->getResult();
@@ -53,5 +54,14 @@ class Category extends Model
     public function getAllCategories()
     {
         return $this->findAll();
+    }
+
+    public function getMaxSortingCount()
+    {
+        $query = $this->db->table('category')
+            ->selectMax('sorting_order')
+            ->get();
+
+        return $query->getRow()->sorting_order;
     }
 }
