@@ -30964,8 +30964,8 @@ body:after {
   color:red;
 }
 
-#nestable .dd {
-    max-width: 250px;
+#nestable.dd {
+    max-width: 100%;
     margin: 0;
     padding: 0;
     list-style: none;

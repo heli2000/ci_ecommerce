@@ -24,9 +24,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default card-md mb-4">
+                    <?= form_open(base_url('/admin/category/arrange')) ?>
                     <div class="card-header">
                         <h6>Arrange Category</h6>
-                        <a type="button" class="btn btn-sm btn-warning me-0 radius-md" href="<?= base_url("/admin/category/get") ?>"><span class="toggle-icon"></span>Save</a>
+                        <button type="submit" class="btn btn-sm btn-warning me-0 radius-md" href="<?= base_url("/admin/category/get") ?>">Save</button>
                     </div>
                     <div class="card-body">
                         <div class="dd" id="nestable">
@@ -55,6 +56,7 @@
                     </div>
                 </div>
             </div>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

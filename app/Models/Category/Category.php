@@ -11,7 +11,7 @@ class Category extends Model
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'description_one_line', 'description_detail', 'image', 'parent_category_id'];
+    protected $allowedFields    = ['name', 'description_one_line', 'description_detail', 'image', 'parent_category_id', 'sorting_order'];
 
     protected bool $allowEmptyInserts = false;
 
@@ -44,7 +44,7 @@ class Category extends Model
     public function getCategoryListWithParentId()
     {
         $query = $this->db->table('category')
-            ->select('id, name, parent_category_id')
+            ->select('id, name, parent_category_id', 'sorting_order')
             ->get();
 
         return $query->getResult();

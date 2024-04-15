@@ -35,6 +35,11 @@ class Category extends Migration
                 'type'           => 'INT',
                 'constraint'     => 5,
                 'unsigned'       => true,
+            ],
+            'sorting_order' => [
+                'type'           => 'INT',
+                'constraint'     => 5,
+                'unsigned'       => true,
             ]
         ]);
 

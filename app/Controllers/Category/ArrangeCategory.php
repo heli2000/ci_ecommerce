@@ -43,5 +43,6 @@ class ArrangeCategory extends BaseController
 
     public function update_category_sequence()
     {
+        exit("here");
     }
 }
