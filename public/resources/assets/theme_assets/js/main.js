@@ -1614,6 +1614,6 @@
     maxDepth: 10 // Adjust as needed,
   }).on('change', function() {
     var serializedData = window.JSON.stringify($('#nestable').nestable('serialize'));
-    console.log(serializedData);
+    $('input[name="sequence_obj"]').val(serializedData);
   });
 })(jQuery);

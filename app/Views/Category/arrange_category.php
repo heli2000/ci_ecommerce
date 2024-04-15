@@ -16,7 +16,6 @@
                             </nav>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -51,6 +50,7 @@
                                 generateCategoryHTML($category_data);
                                 ?>
                             </ol>
+                            <input type="hidden" name="sequence_obj" id="sequence_obj" />
                         </div>
                     </div>
                 </div>
