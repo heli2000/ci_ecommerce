@@ -1616,4 +1616,9 @@
     var serializedData = window.JSON.stringify($('#nestable').nestable('serialize'));
     $('input[name="sequence_obj"]').val(serializedData);
   });
+
+  $('button[name="category_clear"]').click(function () {
+    $('input[name="category_search"]').val('');
+    $('form[name="category_list"]').submit();
+  })
 })(jQuery);

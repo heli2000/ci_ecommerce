@@ -30995,3 +30995,7 @@ body:after {
     background: #8231d3;
     cursor: pointer;
 }
+
+.filter div, .order-button-group a {
+  margin-right: 1rem;
+}
