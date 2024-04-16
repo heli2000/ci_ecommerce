@@ -159,9 +159,9 @@
                         <li class="dm-pagination__item">
                             <div class="paging-option">
                                 <select name="perPage" class="page-selection" onchange="this.form.submit()">
-                                    <option value="2">2/page</option>
-                                    <option value="3">2/page</option>
-                                    <option value="5">5/page</option>
+                                    <option value="10">10/page</option>
+                                    <option value="15">15/page</option>
+                                    <option value="20">20/page</option>
                                 </select>
                             </div>
                         </li>

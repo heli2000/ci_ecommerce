@@ -14,7 +14,7 @@ class Category extends BaseController
         $this->categoryModel = new CategoryModel();
     }
 
-    public function category_list($perPage = 2)
+    public function category_list($perPage = 10)
     {
 
         if ($this->request->getVar('perPage')) {
