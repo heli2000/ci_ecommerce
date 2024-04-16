@@ -26,6 +26,17 @@ class Category extends BaseController
             ->join('category AS parent', 'parent.id = category.parent_category_id', 'left')
             ->orderBy('category.sorting_order', 'ASC');
 
-        return view('Category\list_category', ['category_data' => $query->paginate($perPage), 'pager' => $query->pager,]);
+
+        $result = $query->paginate($perPage);
+
+        $data = [
+            'category_data' => $result,
+            'pager' => $query->pager,
+            'perPageItem' => count($result),
+            'perPage' => $perPage,
+            'total' => $query->countAllResults(),
+        ];
+
+        return view('Category\list_category', $data);
     }
 }

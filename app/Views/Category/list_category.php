@@ -29,10 +29,10 @@
                     <div class="project-top-wrapper d-flex justify-content-between flex-wrap mb-25 mt-n10">
                         <div class="d-flex align-items-center flex-wrap justify-content-center">
                             <div class="project-search order-search  global-shadow mt-10">
-                                <form action="/" class="order-search__form">
+                                <div class="order-search__form">
                                     <img src="<?= base_url('resources/img/svg/search.svg') ?>" alt="search" class="svg">
                                     <input class="form-control me-sm-2 border-0 box-shadow-none" type="search" placeholder="Filter by keyword" aria-label="Search">
-                                </form>
+                                </div>
                             </div>
                         </div>
                         <div class="content-center">
@@ -131,37 +131,14 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-end mt-15 pt-25 border-top">
+                        <li class="dm-pagination__item"><?= 'Displaying ' . $perPageItem . ' of ' . $total ?></li>
                         <?= $pager->links('default', "custom_pager") ?>
-                        <!-- <nav class="dm-page ">
-                            <ul class="dm-pagination d-flex">
-                                <li class="dm-pagination__item">
-                                    <a href="#" class="dm-pagination__link pagination-control"><span class="la la-angle-left"></span></a>
-                                    <a href="#" class="dm-pagination__link"><span class="page-number">1</span></a>
-                                    <a href="#" class="dm-pagination__link active"><span class="page-number">2</span></a>
-                                    <a href="#" class="dm-pagination__link"><span class="page-number">3</span></a>
-                                    <a href="#" class="dm-pagination__link pagination-control"><span class="page-number">...</span></a>
-                                    <a href="#" class="dm-pagination__link"><span class="page-number">12</span></a>
-                                    <a href="#" class="dm-pagination__link pagination-control"><span class="la la-angle-right"></span></a>
-                                    <a href="#" class="dm-pagination__option">
-                                    </a>
-                                </li>
-                                <li class="dm-pagination__item">
-                                    <div class="paging-option">
-                                        <select name="page-number" class="page-selection">
-                                            <option value="20">20/page</option>
-                                            <option value="40">40/page</option>
-                                            <option value="60">60/page</option>
-                                        </select>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav> -->
                         <li class="dm-pagination__item">
                             <div class="paging-option">
                                 <select name="perPage" class="page-selection" onchange="this.form.submit()">
-                                    <option value="10">10/page</option>
-                                    <option value="15">15/page</option>
-                                    <option value="20">20/page</option>
+                                    <option value="10" <?= set_select('perPage', '10', ($perPage == 10)) ?>>10/page</option>
+                                    <option value="15" <?= set_select('perPage', '15', ($perPage == 15)) ?>>15/page</option>
+                                    <option value="20" <?= set_select('perPage', '20', ($perPage == 20)) ?>>20/page</option>
                                 </select>
                             </div>
                         </li>
