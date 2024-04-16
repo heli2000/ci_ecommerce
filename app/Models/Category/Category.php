@@ -59,7 +59,7 @@ class Category extends Model
             ->orderBy('category.sorting_order', 'ASC')
             ->get();
 
-        return $query->getResult();
+        return $this->findAll();
     }
 
     public function getMaxSortingCount()

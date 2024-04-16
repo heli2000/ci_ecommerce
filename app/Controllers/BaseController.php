@@ -35,6 +35,7 @@ abstract class BaseController extends Controller
     protected $session;
     protected $validation;
     protected $encrypter;
+    protected $pager;
     protected $emailController;
     /**
      * An array of helpers to be loaded automatically upon
@@ -61,6 +62,7 @@ abstract class BaseController extends Controller
         $this->session         = \Config\Services::session();
         $this->validation = \Config\Services::validation();
         $this->encrypter = \Config\Services::encrypter();
+        $this->pager = \Config\Services::pager();
         $this->userModel = new UserModel();
         $this->otpModel = new Otp();
         $this->emailController = new EmailController();

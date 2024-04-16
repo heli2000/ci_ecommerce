@@ -1,7 +1,7 @@
 <?= $this->extend('Layouts\user_layout.php') ?>
 <?= $this->section('content') ?>
 <div class="contents">
-
+    <?= form_open(base_url('/admin/category/get'),  ['method' => 'get']) ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
@@ -94,19 +94,19 @@
                                                 </div>
                                                 <div class="orderDatatable-title">
                                                     <p class="d-block mb-0">
-                                                        <?= $value->name ?>
+                                                        <?= $value['name'] ?>
                                                     </p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="orderDatatable-title">
-                                                <?= $value->description_one_line ?>
+                                                <?= $value['description_one_line'] ?>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="orderDatatable-title">
-                                                <?= $value->parent_name ?>
+                                                <?= $value['parent_name'] ?>
                                             </div>
                                         </td>
                                         <td>
@@ -131,8 +131,8 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-end mt-15 pt-25 border-top">
-
-                        <nav class="dm-page ">
+                        <?= $pager->links('default', "custom_pager") ?>
+                        <!-- <nav class="dm-page ">
                             <ul class="dm-pagination d-flex">
                                 <li class="dm-pagination__item">
                                     <a href="#" class="dm-pagination__link pagination-control"><span class="la la-angle-left"></span></a>
@@ -155,14 +155,22 @@
                                     </div>
                                 </li>
                             </ul>
-                        </nav>
-
+                        </nav> -->
+                        <li class="dm-pagination__item">
+                            <div class="paging-option">
+                                <select name="perPage" class="page-selection" onchange="this.form.submit()">
+                                    <option value="2">2/page</option>
+                                    <option value="3">2/page</option>
+                                    <option value="5">5/page</option>
+                                </select>
+                            </div>
+                        </li>
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <?= form_close() ?>
 </div>
 <?= $this->endSection('content') ?>
