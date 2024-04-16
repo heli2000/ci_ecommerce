@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\Category\Category as CategoryModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
-class AddCategory extends BaseController
+class AddEditCategory extends BaseController
 {
 
     protected $list;
@@ -23,12 +23,26 @@ class AddCategory extends BaseController
         }
     }
 
-    public function index()
+    public function index($category_id = null)
     {
-        return view("Category\add_category", ['category_list' => $this->list, 'validation' => $this->validation]);
+        $category_data = [];
+
+        if ($category_id) {
+            $category_data = $this->categoryModel->find($category_id);
+            // print_r($category_data);
+            // exit;
+        }
+
+        $data = [
+            'category_list' => $this->list,
+            'validation' => $this->validation,
+            'category_data' => $category_data,
+        ];
+
+        return view("Category\add_category", $data);
     }
 
-    public function addCategory()
+    public function addEditCategory($category_id = null)
     {
         $post_data = $this->request->getPost();
         $file = $this->request->getFile('category_image');

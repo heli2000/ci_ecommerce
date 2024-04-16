@@ -11,7 +11,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="<?= base_url('/') ?>"><i class="uil uil-estate"></i>Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Add Category</li>
+                                    <li class="breadcrumb-item active" aria-current="page"><?= isset($category_data) && count($category_data) > 0 ? 'Edit Category' : 'Add Category' ?></li>
                                 </ol>
                             </nav>
                         </div>
@@ -21,7 +21,7 @@
                 <div class="col-lg-6">
                     <div class="card card-default card-md mb-4">
                         <div class="card-header">
-                            <h6>Add Category</h6>
+                            <h6><?= isset($category_data) && count($category_data) > 0 ? 'Edit Category' : 'Add Category' ?></h6>
                             <a type="button" class="btn btn-sm btn-primary me-0 radius-md" href="<?= base_url("/admin/category/get") ?>">
                                 <span class="toggle-icon"></span>Go to List</a>
                         </div>
@@ -49,17 +49,17 @@
                                 <div class="form-basic">
                                     <div class="form-group mb-25">
                                         <label>Category Name</label>
-                                        <input class="form-control form-control-lg" type="text" name="category_name" placeholder="category name" value="<?= set_value('category_name') ?>">
+                                        <input class="form-control form-control-lg" type="text" name="category_name" placeholder="category name" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('category_name', $category_data['name']) : set_value('category_name') ?>">
                                         <span class="help-block"><?= $validation->showError('category_name') ?></span>
                                     </div>
                                     <div class="form-group mb-25">
                                         <label>Category One Line Description</label>
-                                        <input class="form-control form-control-lg" type="text" name="category_one_line_description" placeholder="One Line Description" value="<?= set_value('category_one_line_description') ?>">
+                                        <input class="form-control form-control-lg" type="text" name="category_one_line_description" placeholder="One Line Description" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('category_name', $category_data['description_one_line']) : set_value('category_one_line_description') ?>">
                                         <span class="help-block"><?= $validation->showError('category_one_line_description') ?></span>
                                     </div>
                                     <div class="form-group mb-25">
                                         <label>Category Detailed Description</label>
-                                        <input class="form-control form-control-lg" type="text" name="category_detailed_description" placeholder="Detailed Description" value="<?= set_value('category_detailed_description') ?>">
+                                        <input class="form-control form-control-lg" type="text" name="category_detailed_description" placeholder="Detailed Description" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('category_name', $category_data['description_detail']) : set_value('category_detailed_description') ?>">
                                         <span class="help-block"><?= $validation->showError('category_detailed_description') ?></span>
                                     </div>
                                     <div class="form-group mb-25">
@@ -72,7 +72,7 @@
 
                                                     <div class="dm-upload">
                                                         <div class="dm-upload-avatar">
-                                                            <img class="avatrSrc" src="<?= base_url('resources/img/upload.png') ?>" alt="Avatar Upload">
+                                                            <img class="avatrSrc" src="<?= isset($category_data) && count($category_data) > 0 ? base_url('/file/download/' . $category_data['image']) : base_url('resources/img/upload.png') ?>" alt="Avatar Upload">
                                                         </div>
                                                         <div class="avatar-up">
                                                             <input type="file" class="upload-avatar-input" name="category_image">
@@ -89,7 +89,7 @@
                                             Select Parent Category
                                         </label>
                                         <div class="dm-select ">
-                                            <select id="select-search" class="form-control" name="parent_category" value="<?= set_value('parent_category') ?>">
+                                            <select id="select-search" class="form-control" name="parent_category" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('category_name', $category_data['parent_category_id']) : set_value('parent_category') ?>">
                                                 <option value="0">Select Parent Category</option>
                                                 <?php
                                                 if (isset($category_list)) {
