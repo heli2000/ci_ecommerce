@@ -39,3 +39,23 @@ if (!function_exists("buildHierarchy")) {
         return $result;
     }
 }
+
+if (!function_exists("encodeURL")) {
+    function encodeURL($string)
+    {
+        if (!empty($string)) {
+            $encrypted = str_replace('/', '__SLASH__', $string);
+            $encrypted = str_replace('+', '__PLUS__', $encrypted);
+        }
+        return $encrypted;
+    }
+}
+
+if (!function_exists("decodeURL")) {
+    function decodeURL($string)
+    {
+        $string = str_replace('__SLASH__', '/', $string);
+        $string = str_replace('__PLUS__', '+', $string);
+        return $string;
+    }
+}

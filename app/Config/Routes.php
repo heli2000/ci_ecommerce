@@ -24,7 +24,7 @@ $routes->group('admin', static function ($routes) {
     $routes->group('category', static function ($routes) {
         $routes->get('add', 'Category\AddEditCategory::index', ['filter' => 'adminAuth']);
         $routes->post('add', 'Category\AddEditCategory::addEditCategory', ['filter' => 'adminAuth']);
-        $routes->get('edit/(:num)', 'Category\AddEditCategory::index/$1', ['filter' => 'adminAuth']);
+        $routes->get('edit/(:segment)', 'Category\AddEditCategory::index/$1', ['filter' => 'adminAuth']);
         $routes->post('edit', 'Category\AddEditCategory::addEditCategory', ['filter' => 'adminAuth']);
         $routes->get('get', 'Category\Category::category_list', ['filter' => 'adminAuth']);
         $routes->get('export', 'Category\Category::export_category', ['filter' => 'adminAuth']);

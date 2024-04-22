@@ -31,7 +31,7 @@ class UserController extends BaseController
                 throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
             }
 
-            if ($user && $this->encrypter->decrypt(base64_decode($user['password'])) == $password) {
+            if ($user && $this->encrypter->decrypt($user['password']) == $password) {
                 if ($user['isVerified'] == true) {
                     $this->session->set('user', $user);
                     return redirect()->to(base_url('/'));
@@ -87,7 +87,7 @@ class UserController extends BaseController
                 $this->validation->setError('UserExist', 'User already exist, please login');
                 return view('Authentication\register.php', ['validation' => $this->validation]);
             } else {
-                $data["password"] = base64_encode($this->encrypter->encrypt($data["password"]));
+                $data["password"] = $this->encrypter->encrypt($data["password"]);
                 $data['createdAt'] = time();
                 $data['updatedAt'] = time();
 
@@ -231,7 +231,7 @@ class UserController extends BaseController
             return view('Authentication\setNewPassword.php', ['uid' => $uid, 'validation' => $this->validation]);
         }
 
-        $newPassword = base64_encode($this->encrypter->encrypt($password));
+        $newPassword = $this->encrypter->encrypt($password);
 
 
         try {

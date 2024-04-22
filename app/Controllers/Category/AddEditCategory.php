@@ -28,9 +28,15 @@ class AddEditCategory extends BaseController
         $category_data = [];
 
         if ($category_id) {
+            try {
+                $category_id = $this->encrypter->decrypt(decodeURL($category_id));
+            } catch (\CodeIgniter\Encryption\Exceptions\EncryptionException $e) {
+                // Handle decryption error
+                echo 'Decryption error: ' . $e->getMessage();
+                exit;
+            }
+
             $category_data = $this->categoryModel->find($category_id);
-            // print_r($category_data);
-            // exit;
         }
 
         $data = [

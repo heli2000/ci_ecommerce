@@ -112,7 +112,7 @@
                                         <td>
                                             <ul class="orderDatatable_actions mb-0 d-flex flex-wrap float-end">
                                                 <li>
-                                                    <a href="<?= base_url('/admin/category/edit/' . $value['id']) ?>" class="edit">
+                                                    <a href="<?= base_url('/admin/category/edit/' . urlencode(encodeURL($encrypter->encrypt($value['id'])))) ?>" class="edit">
                                                         <i class="uil uil-edit"></i>
                                                     </a>
                                                 </li>

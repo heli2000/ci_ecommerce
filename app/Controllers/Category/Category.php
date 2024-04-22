@@ -45,7 +45,8 @@ class Category extends BaseController
             'perPageItem' => count($result),
             'perPage' => $perPage,
             'total' => $query->countAllResults(),
-            'searchVal' => $searchVal
+            'searchVal' => $searchVal,
+            'encrypter' => $this->encrypter
         ];
 
         return view('Category\list_category', $data);
