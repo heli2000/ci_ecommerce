@@ -23,15 +23,14 @@ class AddEditCategory extends BaseController
         }
     }
 
-    public function index($category_id = null)
+    public function index($id = null)
     {
         $category_data = [];
 
-        if ($category_id) {
+        if ($id) {
             try {
-                $category_id = $this->encrypter->decrypt(decodeURL($category_id));
+                $category_id = $this->encrypter->decrypt(decodeURL($id));
             } catch (\CodeIgniter\Encryption\Exceptions\EncryptionException $e) {
-                // Handle decryption error
                 echo 'Decryption error: ' . $e->getMessage();
                 exit;
             }
@@ -43,14 +42,17 @@ class AddEditCategory extends BaseController
             'category_list' => $this->list,
             'validation' => $this->validation,
             'category_data' => $category_data,
+            'url' => $id ? '/admin/category/edit/' . $id : '/admin/category/add',
         ];
 
         return view("Category\add_category", $data);
     }
 
-    public function addEditCategory($category_id = null)
+    public function addEditCategory($id = null)
     {
         $post_data = $this->request->getPost();
+        $editImageFlag = false;
+
         $file = $this->request->getFile('category_image');
 
         $category_data = [
@@ -67,14 +69,46 @@ class AddEditCategory extends BaseController
         ];
 
         if (!$this->validateData($post_data, $validationRules)) {
-            return view('Category\add_category', ['category_list' => $this->list, 'validation' => $this->validation]);
+            return view('Category\add_category', ['category_list' => $this->list, 'validation' => $this->validation,  'url' => $id ? '/admin/category/edit/' . $id : '/admin/category/add']);
         }
+
+        if ($id) {
+            try {
+                $category_id = $this->encrypter->decrypt(decodeURL($id));
+                $data = $this->categoryModel->find($category_id);
+                $editImageFlag = $data['image'] && $data['image'] != '' ? true : false;
+            } catch (\CodeIgniter\Encryption\Exceptions\EncryptionException $e) {
+                echo 'Decryption error: ' . $e->getMessage();
+                exit;
+            }
+        }
+
         if ($file->isValid() && !$file->hasMoved()) {
             $path = WRITEPATH . 'uploads\category';
             $file->move($path);
             $fileName = $file->getName();
             $category_data['image'] = 'category/' . $fileName;
+        } else if ($editImageFlag == false) {
+            $this->validation->setError('category_image', 'Category Image is required');
+            return view('Category\add_category', ['category_list' => $this->list, 'validation' => $this->validation, 'url' => $id ? '/admin/category/edit/' . $id : '/admin/category/add']);
+        }
 
+        if ($id) {
+            try {
+                $this->categoryModel->set('name', $category_data['name']);
+                $this->categoryModel->set('description_one_line', $category_data['description_one_line']);
+                $this->categoryModel->set('description_detail', $category_data['description_detail']);
+                $this->categoryModel->set('parent_category_id', $category_data['parent_category_id']);
+                key_exists('image', $category_data) && $this->categoryModel->set('image', $category_data['image']);
+                $this->categoryModel->where('id', $category_id);
+                $this->categoryModel->update();
+            } catch (\Exception $e) {
+                log_message('error', 'Error Editing category: ' . $e->getMessage());
+                throw new PageNotFoundException($e);
+            }
+            session()->setFlashdata('message', 'Category Edited Successfully');
+            return redirect()->to(base_url('/admin/category/edit/' . $id));
+        } else {
             $sort_count = $this->categoryModel->getMaxSortingCount() + 1;
             $category_data['sorting_order'] = $sort_count;
 
@@ -86,9 +120,6 @@ class AddEditCategory extends BaseController
             }
             session()->setFlashdata('message', 'Category Added Successfully');
             return redirect()->to(base_url('/admin/category/add'));
-        } else {
-            $this->validation->setError('category_image', 'Category Image is required');
-            return view('Category\add_category', ['category_list' => $this->list, 'validation' => $this->validation]);
         }
     }
 }

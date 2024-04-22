@@ -45,7 +45,7 @@
                                     </div>
                                 <?php
                                 } ?>
-                                <?= form_open_multipart(base_url('/admin/category/add')) ?>
+                                <?= form_open_multipart(base_url($url)) ?>
                                 <div class="form-basic">
                                     <div class="form-group mb-25">
                                         <label>Category Name</label>
