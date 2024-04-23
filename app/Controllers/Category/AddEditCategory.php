@@ -71,7 +71,6 @@ class AddEditCategory extends BaseController
         if (!$this->validateData($post_data, $validationRules)) {
             return view('Category\add_category', ['category_list' => $this->list, 'validation' => $this->validation,  'url' => $id ? '/admin/category/edit/' . $id : '/admin/category/add']);
         }
-
         if ($id) {
             try {
                 $category_id = $this->encrypter->decrypt(decodeURL($id));
@@ -82,6 +81,7 @@ class AddEditCategory extends BaseController
                 exit;
             }
         }
+
 
         if ($file->isValid() && !$file->hasMoved()) {
             $path = WRITEPATH . 'uploads\category';
@@ -120,6 +120,21 @@ class AddEditCategory extends BaseController
             }
             session()->setFlashdata('message', 'Category Added Successfully');
             return redirect()->to(base_url('/admin/category/add'));
+        }
+    }
+
+    public function deleteCategory()
+    {
+        $post_data = $this->request->getPost();
+        if ($post_data) {
+            try {
+                $category_id = $this->encrypter->decrypt(decodeURL(urldecode($post_data['delete_id'])));
+                $this->categoryModel->where('id', $category_id)->delete();
+                return redirect()->to(base_url('/admin/category/get'));
+            } catch (\CodeIgniter\Encryption\Exceptions\EncryptionException $e) {
+                echo 'Decryption error: ' . $e->getMessage();
+                exit;
+            }
         }
     }
 }

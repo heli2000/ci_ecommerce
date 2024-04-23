@@ -118,7 +118,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="#" class="remove">
-                                                        <i class="uil uil-trash-alt"></i>
+                                                        <i class="uil uil-trash-alt remove_category_item" data-bs-toggle="modal" data-delete-id="<?= urlencode(encodeURL($encrypter->encrypt($value['id']))) ?>" data-bs-target="#modal-info-delete"></i>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -149,5 +149,10 @@
         </div>
     </div>
     <?= form_close() ?>
+    <?= form_open(base_url('/admin/category/delete')) ?>
+    <input type="hidden" name="delete_id" class="delete_id" />
+    <?= $this->include('Layouts\Modals\delete_Modal') ?>
+    <?= form_close() ?>
+
 </div>
 <?= $this->endSection('content') ?>

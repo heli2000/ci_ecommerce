@@ -11,7 +11,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="<?= base_url('/') ?>"><i class="uil uil-estate"></i>Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page"><?= isset($category_data) && count($category_data) > 0 ? 'Edit Category' : 'Add Category' ?></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><?= isset($url) && str_contains($url, 'edit') > 0 ? 'Edit Category' : 'Add Category' ?></li>
                                 </ol>
                             </nav>
                         </div>
@@ -21,7 +21,7 @@
                 <div class="col-lg-6">
                     <div class="card card-default card-md mb-4">
                         <div class="card-header">
-                            <h6><?= isset($category_data) && count($category_data) > 0 ? 'Edit Category' : 'Add Category' ?></h6>
+                            <h6><?= isset($url) && str_contains($url, 'edit') > 0 ? 'Edit Category' : 'Add Category' ?></h6>
                             <a type="button" class="btn btn-sm btn-primary me-0 radius-md" href="<?= base_url("/admin/category/get") ?>">
                                 <span class="toggle-icon"></span>Go to List</a>
                         </div>

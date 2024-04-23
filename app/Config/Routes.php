@@ -32,6 +32,8 @@ $routes->group('admin', static function ($routes) {
         $routes->get('edit/(:segment)', 'Category\AddEditCategory::index/$1', ['filter' => 'adminAuth']);
         $routes->post('edit/(:segment)', 'Category\AddEditCategory::addEditCategory/$1', ['filter' => 'adminAuth']);
 
+        $routes->post('delete', 'Category\AddEditCategory::deleteCategory', ['filter' => 'adminAuth']);
+
         $routes->get('arrange', 'Category\ArrangeCategory::index', ['filter' => 'adminAuth']);
         $routes->post('arrange', 'Category\ArrangeCategory::update_category_sequence', ['filter' => 'adminAuth']);
     });

@@ -1620,5 +1620,9 @@
   $('button[name="category_clear"]').click(function () {
     $('input[name="category_search"]').val('');
     $('form[name="category_list"]').submit();
-  })
+  });
+
+  $('.remove_category_item').click(function(){
+    $('.delete_id').val($(this).attr('data-delete-id'));
+  });
 })(jQuery);
