@@ -51,6 +51,43 @@ class Category extends Model
         return $query->getResult();
     }
 
+    public function getCategoryListForMenu()
+    {
+        // Retrieve the first 5 category IDs where the parent category ID is null
+        $queryIds = $this->db->table('category')
+            ->select('id')
+            ->where('parent_category_id', 0)
+            ->orderBy('sorting_order', 'ASC')
+            ->limit(5)
+            ->get()
+            ->getResultArray();
+
+        $categoryIds = array_column($queryIds, 'id');
+
+        $allCategoryIds = $categoryIds;
+
+        while (!empty($categoryIds)) {
+            $subQueryIds = $this->db->table('category')
+                ->select('id')
+                ->whereIn('parent_category_id', $categoryIds)
+                ->get()
+                ->getResultArray();
+
+            $subCategoryIds = array_column($subQueryIds, 'id');
+            $allCategoryIds = array_merge($allCategoryIds, $subCategoryIds);
+            $categoryIds = $subCategoryIds;
+        }
+
+        $queryAllData = $this->db->table('category')
+            ->select('id, name, parent_category_id, sorting_order')
+            ->whereIn('id', $allCategoryIds)
+            ->orderBy('sorting_order', 'ASC')
+            ->get()
+            ->getResult();
+
+        return $queryAllData;
+    }
+
     public function getMaxSortingCount()
     {
         $query = $this->db->table('category')

@@ -10,7 +10,6 @@
 
 </head>
 
-
 <body>
     <header class="header-top">
         <nav class="navbar navbar-light">
@@ -21,7 +20,7 @@
                         <img class="light" src="<?= base_url('resources/img/Hex_ecommerce_logo.png') ?>" alt="logo">
                     </a>
                     <a href="#" class="sidebar-toggle">
-                        <img class="svg" src="img/svg/align-center-alt.svg" alt="img"></a>
+                        <img class="svg" src="<?= base_url("resources/img/svg/align-center-alt.svg") ?>" alt="img"></a>
                 </div>
                 <div class="top-menu">
                     <div class="hexadash-top-menu position-relative">
@@ -50,6 +49,9 @@
                             }
                             ?>
                             <?php renderCategory($category_list); ?>
+                            <li>
+                                <a href="<?= base_url("/") ?>" class="">More</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -58,7 +60,7 @@
             <div class="navbar-right">
                 <ul class="navbar-right__menu">
                     <li class="nav-search">
-                        <a href="#" class="search-toggle">
+                        <a href="#" class="search-toggle active">
                             <i class="uil uil-search"></i>
                             <i class="uil uil-times"></i>
                         </a>
@@ -228,10 +230,10 @@
                 <!-- ends: .navbar-right__menu -->
                 <div class="navbar-right__mobileAction d-md-none">
                     <a href="#" class="btn-search">
-                        <img src="img/svg/search.svg" alt="search" class="svg feather-search">
-                        <img src="img/svg/x.svg" alt="x" class="svg feather-x"></a>
+                        <img src="<?= base_url("resources/img/svg/search.svg") ?>" alt="search" class="svg feather-search">
+                        <img src="<?= base_url("resources/img/svg/x.svg") ?>" alt="x" class="svg feather-x"></a>
                     <a href="#" class="btn-author-action">
-                        <img class="svg" src="img/svg/more-vertical.svg" alt="more-vertical"></a>
+                        <img class="svg" src="<?= base_url("resources/img/svg/more-vertical.svg") ?>" alt="more-vertical"></a>
                 </div>
             </div>
             <!-- ends: .navbar-right -->

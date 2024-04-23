@@ -4,8 +4,8 @@
 <body class="layout-light <?= session('user') && session('user')['isAdmin'] == true ? '' : 'top-menu' ?>">
     <div class="mobile-search">
         <form action="/" class="search-form">
-            <img src="img/svg/search.svg" alt="search" class="svg">
-            <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="Search..." aria-label="Search">
+            <img src="<?= base_url("resources/img/svg/search.svg") ?>" alt="search" class="svg">
+            <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="Search Product" aria-label="Search">
         </form>
     </div>
     <div class="mobile-author-actions"></div>

@@ -4,7 +4,7 @@
 <body class="layout-light top-menu">
     <div class="mobile-search">
         <form action="/" class="search-form">
-            <img src="img/svg/search.svg" alt="search" class="svg">
+            <img src="<?= base_url("resources/img/svg/search.svg") ?>" alt="search" class="svg">
             <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="Search..." aria-label="Search">
         </form>
     </div>

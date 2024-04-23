@@ -17,7 +17,7 @@ class Home extends BaseController
     public function index(): string
     {
         try {
-            $category_data = $this->categoryModel->getCategoryListWithParentId();
+            $category_data = $this->categoryModel->getCategoryListForMenu();
             $hierarchicalCategories = buildHierarchy($category_data);
         } catch (\Exception $e) {
             log_message('error', 'Error inserting category: ' . $e->getMessage());
