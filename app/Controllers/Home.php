@@ -2,10 +2,32 @@
 
 namespace App\Controllers;
 
+use App\Models\Category\Category as CategoryModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
+
 class Home extends BaseController
 {
+    protected $categoryModel;
+
+    public function __construct()
+    {
+        $this->categoryModel = new CategoryModel();
+    }
+
     public function index(): string
     {
-        return view('Dashboard/index');
+        try {
+            $category_data = $this->categoryModel->getCategoryListWithParentId();
+            $hierarchicalCategories = buildHierarchy($category_data);
+        } catch (\Exception $e) {
+            log_message('error', 'Error inserting category: ' . $e->getMessage());
+            throw new PageNotFoundException('An error occurred while adding the category. Please try again later.');
+        }
+
+        $data = [
+            'category_list' => $hierarchicalCategories
+        ];
+
+        return view('Dashboard/index', $data);
     }
 }
