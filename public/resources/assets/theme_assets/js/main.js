@@ -499,11 +499,38 @@
     });
 
     $(document).ready(function () {
-      var globalSlider = {
-        dots: true,
-        arrows: false,
-      }
-      $('.global-slider').slick(globalSlider);
+        var globalSlider = {
+          dots: true,
+          prevArrow: '<button type="button" class="slick-prev">&#60;</button>', 
+          nextArrow: '<button type="button" class="slick-next">&#62;</button>',
+          autoplay: true,
+          autoplaySpeed: 5000,
+          infinite: true,
+       };
+
+      function initializeSlider() {
+          // Determine the number of slides to show based on screen width
+          if ($(window).width() < 768) {
+              globalSlider.slidesToShow = 1;
+          } else if ($(window).width() < 992) {
+              globalSlider.slidesToShow = 2;
+          } else if ($(window).width() < 1200) {
+              globalSlider.slidesToShow = 3;
+          } else {
+              globalSlider.slidesToShow = 4;
+          }
+
+          // Initialize the slider with the updated settings
+          $('.global-slider-category').slick(globalSlider);
+        }
+
+      // Initialize the slider on page load
+        initializeSlider();
+
+        // Reinitialize the slider on window resize to adjust for changes in screen size
+        $(window).resize(function() {
+            initializeSlider();
+        });
     });
   }
 

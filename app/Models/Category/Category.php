@@ -44,7 +44,7 @@ class Category extends Model
     public function getCategoryListWithParentId()
     {
         $query = $this->db->table('category')
-            ->select('id, name, parent_category_id', 'sorting_order')
+            ->select('id, name, image, parent_category_id')
             ->orderBy('sorting_order', 'ASC')
             ->get();
 
@@ -79,7 +79,7 @@ class Category extends Model
         }
 
         $queryAllData = $this->db->table('category')
-            ->select('id, name, parent_category_id, sorting_order')
+            ->select('id, name, parent_category_id, sorting_order, image')
             ->whereIn('id', $allCategoryIds)
             ->orderBy('sorting_order', 'ASC')
             ->get()
