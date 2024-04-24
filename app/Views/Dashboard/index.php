@@ -30,8 +30,17 @@
                     <?php
                     foreach ($all_category_data as $key => $value) {
                     ?>
-                        <div class="slick-slider__single d-flex slider-img-size">
+                        <!-- <div class="slick-slider__single d-flex slider-img-size">
                             <img src="<?= base_url('/file/download/' . $value->image) ?>" />
+                        </div> -->
+                        <div class="feature-cards">
+                            <figure class="feature-cards__figure">
+                                <img src="img/blog-single1.png" alt="">
+                                <figcaption class="slider-img-size">
+                                    <h4><?= $value->name ?></h4>
+                                    <img src="<?= base_url('/file/download/' . $value->image) ?>" />
+                                </figcaption>
+                            </figure>
                         </div>
                     <?php
                     }
