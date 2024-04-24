@@ -505,7 +505,7 @@
           nextArrow: '<button type="button" class="slick-next">&#62;</button>',
           autoplay: true,
           autoplaySpeed: 5000,
-          infinite: true,
+          infinite: false,
        };
 
       function initializeSlider() {

@@ -44,7 +44,7 @@ class Category extends Model
     public function getCategoryListWithParentId()
     {
         $query = $this->db->table('category')
-            ->select('id, name, image, parent_category_id')
+            ->select('id, name, image, description_one_line , parent_category_id')
             ->orderBy('sorting_order', 'ASC')
             ->get();
 
