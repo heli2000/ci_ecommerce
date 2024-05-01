@@ -89,4 +89,15 @@ class Category extends BaseController
 
         exit;
     }
+
+    public function view_all_category()
+    {
+        $category_data = $this->categoryModel
+            ->select('category.id, category.name, category.parent_category_id, category.sorting_order, category.description_one_line, parent.name AS parent_name')
+            ->join('category AS parent', 'parent.id = category.parent_category_id', 'left')
+            ->orderBy('category.sorting_order', 'ASC')
+            ->findAll();
+
+        return view('Category\view_all_category', ['category_data' => $category_data]);
+    }
 }
