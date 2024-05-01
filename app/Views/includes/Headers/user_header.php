@@ -50,7 +50,7 @@
                             ?>
                             <?php renderCategory($category_list); ?>
                             <li>
-                                <a href="<?= base_url("/") ?>" class="">More</a>
+                                <a href="<?= base_url("/category/viewAll") ?>" class="">More</a>
                             </li>
                         </ul>
                     </div>

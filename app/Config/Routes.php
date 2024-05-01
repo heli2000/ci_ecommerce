@@ -20,6 +20,11 @@ $routes->post('/set-new-pass', 'UserAuth\UserController::setNewPassword');
 
 $routes->get('/logout', 'UserAuth\UserController::logout');
 
+$routes->group('category', static function ($routes) {
+    $routes->get('viewAll', 'Category\Category::view_all_category');
+});
+
+
 $routes->group('admin', static function ($routes) {
     $routes->group('category', static function ($routes) {
         $routes->get('get', 'Category\Category::category_list', ['filter' => 'adminAuth']);
