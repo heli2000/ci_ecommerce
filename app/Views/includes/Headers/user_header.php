@@ -29,6 +29,7 @@
                                 <a href="<?= base_url("/") ?>" class="active">Dashboard</a>
                             </li>
                             <?php
+
                             function renderCategory($category_list, $isFirst = true)
                             {
                                 foreach ($category_list as $key => $value) {
@@ -48,7 +49,7 @@
                                 }
                             }
                             ?>
-                            <?php renderCategory($category_list); ?>
+                            <?php renderCategory(service('sharedData')->categoryData); ?>
                             <li>
                                 <a href="<?= base_url("/category/viewAll") ?>" class="">More</a>
                             </li>

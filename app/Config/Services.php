@@ -3,6 +3,7 @@
 namespace Config;
 
 use CodeIgniter\Config\BaseService;
+use App\ViewModels\SharedData;
 
 /**
  * Services Configuration file.
@@ -29,4 +30,9 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+
+    public static function sharedData(): SharedData
+    {
+        return new SharedData();
+    }
 }
