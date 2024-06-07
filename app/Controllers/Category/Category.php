@@ -93,7 +93,7 @@ class Category extends BaseController
     public function view_all_category()
     {
         $category_data = $this->categoryModel
-            ->select('category.id, category.name, category.parent_category_id, category.sorting_order, category.description_one_line, parent.name AS parent_name')
+            ->select('category.id, category.name, category.parent_category_id, category.sorting_order, category.description_one_line, parent.name AS parent_name,category.description_detail, category.image')
             ->join('category AS parent', 'parent.id = category.parent_category_id', 'left')
             ->orderBy('category.sorting_order', 'ASC')
             ->findAll();

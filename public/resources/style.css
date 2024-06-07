@@ -31032,3 +31032,8 @@ body:after {
 .slider-img-size {
   text-align: center;
 }
+
+.view-all-cat-page img{
+  height: 20rem;
+  width: 100%;
+}

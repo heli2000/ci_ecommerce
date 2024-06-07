@@ -26,7 +26,7 @@
                     <div class="hexadash-top-menu position-relative">
                         <ul>
                             <li>
-                                <a href="<?= base_url("/") ?>" class="active">Dashboard</a>
+                                <a href="<?= base_url("/") ?>" class="<?= current_url() == base_url() ? 'active' : '' ?>">Dashboard</a>
                             </li>
                             <?php
 
@@ -51,7 +51,7 @@
                             ?>
                             <?php renderCategory(service('sharedData')->categoryData); ?>
                             <li>
-                                <a href="<?= base_url("/category/viewAll") ?>" class="">More</a>
+                                <a href="<?= base_url("/category/viewAll") ?>" class="<?= current_url() == base_url('category/viewAll') ? 'active' : '' ?>">More</a>
                             </li>
                         </ul>
                     </div>
