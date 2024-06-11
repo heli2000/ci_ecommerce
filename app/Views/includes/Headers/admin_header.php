@@ -227,15 +227,15 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="has-child <?= str_contains(current_url(), 'admin/category') ? 'open' : '' ?>">
-                        <a href="#" class="<?= str_contains(current_url(), 'admin/category') ? 'open' : '' ?>">
+                    <li class="has-child <?= str_contains(current_url(), 'admin/product') ? 'open' : '' ?>">
+                        <a href="#" class="<?= str_contains(current_url(), 'admin/product') ? 'open' : '' ?>">
                             <span class="nav-icon uil uil-create-dashboard"></span>
                             <span class="menu-text">Products</span>
                             <span class="toggle-icon"></span>
                         </a>
                         <ul>
-                            <li class="<?= current_url() == base_url('admin/category/get') ? 'active' : '' ?>">
-                                <a href="<?= base_url('admin/category/get') ?>">Add Product</a>
+                            <li class="<?= current_url() == base_url('admin/product/variant/get') ? 'active' : '' ?>">
+                                <a href="<?= base_url('admin/product/variant/get') ?>">Variants</a>
                             </li>
                         </ul>
                     </li>

@@ -12,7 +12,7 @@ class Variants extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['id', 'name', 'description'];
 
     protected bool $allowEmptyInserts = false;
 

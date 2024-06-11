@@ -42,6 +42,12 @@ $routes->group('admin', static function ($routes) {
         $routes->get('arrange', 'Category\ArrangeCategory::index', ['filter' => 'adminAuth']);
         $routes->post('arrange', 'Category\ArrangeCategory::update_category_sequence', ['filter' => 'adminAuth']);
     });
+
+    $routes->group('product', static function ($routes) {
+        $routes->group('variant', static function ($routes) {
+            $routes->get('get', 'Product\Variant::index', ['filter' => 'adminAuth']);
+        });
+    });
 });
 
 
