@@ -227,6 +227,18 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="has-child <?= str_contains(current_url(), 'admin/category') ? 'open' : '' ?>">
+                        <a href="#" class="<?= str_contains(current_url(), 'admin/category') ? 'open' : '' ?>">
+                            <span class="nav-icon uil uil-create-dashboard"></span>
+                            <span class="menu-text">Products</span>
+                            <span class="toggle-icon"></span>
+                        </a>
+                        <ul>
+                            <li class="<?= current_url() == base_url('admin/category/get') ? 'active' : '' ?>">
+                                <a href="<?= base_url('admin/category/get') ?>">Add Product</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -31025,8 +31025,8 @@ body:after {
 }
 
 .slider-img-size img{
-  height: 20rem;
-  width: 23rem;
+  height: 20rem;  
+  width: 100%;  
 }
 
 .slider-img-size {
