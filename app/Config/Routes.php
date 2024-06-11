@@ -46,6 +46,7 @@ $routes->group('admin', static function ($routes) {
     $routes->group('product', static function ($routes) {
         $routes->group('variant', static function ($routes) {
             $routes->get('get', 'Product\Variant::index', ['filter' => 'adminAuth']);
+            $routes->get('add', 'Product\Variant::add_variant', ['filter' => 'adminAuth']);
         });
     });
 });

@@ -1,7 +1,7 @@
 <?= $this->extend('Layouts\user_layout.php') ?>
 <?= $this->section('content') ?>
 <div class="contents">
-    <?= form_open(base_url('/admin/category/get'),  ['method' => 'get', 'name' => 'category_list']) ?>
+    <?= form_open(base_url('/admin/product/variant/get'),  ['method' => 'get', 'name' => 'variant_list']) ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
@@ -12,7 +12,8 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="<?= base_url('/') ?>"><i class="uil uil-estate"></i>Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Category</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Product</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Variant</li>
                                 </ol>
                             </nav>
                         </div>
@@ -30,15 +31,16 @@
                         <div class="d-flex align-items-center flex-wrap justify-content-center filter">
                             <div class="order-search__form">
                                 <img src="<?= base_url('resources/img/svg/search.svg') ?>" alt="search" class="svg">
-                                <input class="form-control me-sm-2 border-0 box-shadow-none" type="search" placeholder="Filter by keyword" aria-label="Search" name="category_search" value="<?= $searchVal ?>">
+                                <input class="form-control me-sm-2 border-0 box-shadow-none" type="search" placeholder="Filter by keyword" aria-label="Search" name="variant_search" value="<?= $searchVal ?>">
                             </div>
                             <div><button type="submit" name="search" class="btn btn-sm btn-primary me-0 radius-md">Search</button></div>
-                            <div><button type="button" name="category_clear" class="btn btn-sm btn-primary me-0 radius-md">Clear</button></div>
+
+                            <div><button type="button" name="variant_clear" class="btn btn-sm btn-primary me-0 radius-md">Clear</button></div>
                         </div>
                         <div class="content-center">
                             <div class="button-group m-0 mt-sm-0 mt-10 order-button-group">
                                 <a type="button" class="order-bg-opacity-secondary text-secondary btn radius-md" href="<?= base_url('/admin/category/export') ?>">Export</a>
-                                <a type="button" class="btn btn-sm btn-primary me-0 radius-md" href="<?= base_url("/admin/category/add") ?>">
+                                <a type="button" class="btn btn-sm btn-primary me-0 radius-md" href="<?= base_url("/admin/product/variant/add") ?>">
                                     <i class="la la-plus"></i> Add Variant</a>
                             </div>
                         </div>

@@ -37,4 +37,14 @@ class Variant extends BaseController
 
         return view('Product\Variant\list_variants', $data);
     }
+
+    public function add_variant()
+    {
+        $data = [
+            'url' => '/add',
+            'validation' => $this->validation
+        ];
+
+        return view('Product\Variant\add_variants', $data);
+    }
 }
