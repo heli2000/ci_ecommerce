@@ -10,6 +10,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use App\Models\User\UserModel;
 use App\Models\Product\Variants;
+use App\Models\Product\VariantOption;
 use App\Models\User\Otp;
 use App\Controllers\UserAuth\EmailController;
 
@@ -33,6 +34,7 @@ abstract class BaseController extends Controller
     protected $request;
     protected $userModel;
     protected $variantModel;
+    protected $variantOptionModel;
     protected $otpModel;
     protected $session;
     protected $validation;
@@ -67,6 +69,7 @@ abstract class BaseController extends Controller
         $this->pager = \Config\Services::pager();
         $this->userModel = new UserModel();
         $this->variantModel = new Variants();
+        $this->variantOptionModel = new VariantOption();
         $this->otpModel = new Otp();
         $this->emailController = new EmailController();
         // Preload any models, libraries, etc, here.

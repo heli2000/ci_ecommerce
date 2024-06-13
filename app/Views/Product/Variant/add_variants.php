@@ -46,40 +46,20 @@
                                 <?= form_open_multipart(base_url($url)) ?>
                                 <div class="form-basic">
                                     <div class="form-group mb-25">
-                                        <label>Category Name</label>
-                                        <input class="form-control form-control-lg" type="text" name="category_name" placeholder="category name" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('category_name', $category_data['name']) : set_value('category_name') ?>">
-                                        <span class="help-block"><?= $validation->showError('category_name') ?></span>
+                                        <label>Variant Name</label>
+                                        <input class="form-control form-control-lg" type="text" name="variant_name" placeholder="Variant name" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('variant_name', $category_data['name']) : set_value('variant_name') ?>">
+                                        <span class="help-block"><?= $validation->showError('variant_name') ?></span>
                                     </div>
                                     <div class="form-group mb-25">
-                                        <label>Category One Line Description</label>
-                                        <input class="form-control form-control-lg" type="text" name="category_one_line_description" placeholder="One Line Description" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('category_name', $category_data['description_one_line']) : set_value('category_one_line_description') ?>">
-                                        <span class="help-block"><?= $validation->showError('category_one_line_description') ?></span>
+                                        <label>Variant Description</label>
+                                        <input class="form-control form-control-lg" type="text" name="variant_description" placeholder="Variant Description" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('variant_description', $category_data['variant_description']) : set_value('variant_description') ?>">
+                                        <span class="help-block"><?= $validation->showError('variant_description') ?></span>
                                     </div>
-                                    <div class="form-group mb-25">
-                                        <label>Category Detailed Description</label>
-                                        <input class="form-control form-control-lg" type="text" name="category_detailed_description" placeholder="Detailed Description" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('category_name', $category_data['description_detail']) : set_value('category_detailed_description') ?>">
-                                        <span class="help-block"><?= $validation->showError('category_detailed_description') ?></span>
-                                    </div>
-                                    <div class="form-group mb-25">
-                                        <div class="card card-default card-md mb-4">
-                                            <label>
-                                                Upload Category Image
-                                            </label>
-                                            <div class="card-body">
-                                                <div class="dm-tag-wrap">
-
-                                                    <div class="dm-upload">
-                                                        <div class="dm-upload-avatar">
-                                                            <img class="avatrSrc" src="<?= isset($category_data) && count($category_data) > 0 ? base_url('/file/download/' . $category_data['image']) : base_url('resources/img/upload.png') ?>" alt="Avatar Upload">
-                                                        </div>
-                                                        <div class="avatar-up">
-                                                            <input type="file" class="upload-avatar-input" name="category_image">
-                                                            <span class="help-block"><?= $validation->showError('category_image') ?></span>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
+                                    <div class="dm-tag-mode form-group mb-25">
+                                        <label>Variant Options</label>
+                                        <div class="dm-select">
+                                            <select name="select-tag[]" id="variant-option" class="form-control form-control-lg" multiple="multiple">
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group mb-0">
