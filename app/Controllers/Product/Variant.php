@@ -137,6 +137,7 @@ class Variant extends BaseController
             try {
                 $variant_id = $this->encrypter->decrypt(decodeURL(urldecode($post_data['delete_id'])));
                 $this->variantModel->where('id', $variant_id)->delete();
+                $this->variantOptionModel->where('variant_id', $variant_id)->delete();
                 return redirect()->to(base_url('/admin/product/variant/get'));
             } catch (\CodeIgniter\Encryption\Exceptions\EncryptionException $e) {
                 echo 'Decryption error: ' . $e->getMessage();
