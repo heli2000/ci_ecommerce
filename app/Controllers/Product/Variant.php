@@ -129,4 +129,19 @@ class Variant extends BaseController
             return redirect()->to(base_url($url));
         }
     }
+
+    public function deleteVariant()
+    {
+        $post_data = $this->request->getPost();
+        if ($post_data) {
+            try {
+                $variant_id = $this->encrypter->decrypt(decodeURL(urldecode($post_data['delete_id'])));
+                $this->variantModel->where('id', $variant_id)->delete();
+                return redirect()->to(base_url('/admin/product/variant/get'));
+            } catch (\CodeIgniter\Encryption\Exceptions\EncryptionException $e) {
+                echo 'Decryption error: ' . $e->getMessage();
+                exit;
+            }
+        }
+    }
 }

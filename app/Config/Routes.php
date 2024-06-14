@@ -52,10 +52,11 @@ $routes->group('admin', static function ($routes) {
 
             $routes->get('edit/(:segment)', 'Product\Variant::add_variant/$1', ['filter' => 'adminAuth']);
             $routes->post('edit/(:segment)', 'Product\Variant::add_variant_data/$1', ['filter' => 'adminAuth']);
+
+            $routes->post('delete', 'Product\Variant::deleteVariant', ['filter' => 'adminAuth']);
         });
     });
 });
-
 
 $routes->get('/404', function () {
     return view('404');

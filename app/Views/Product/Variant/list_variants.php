@@ -127,7 +127,7 @@
         </div>
     </div>
     <?= form_close() ?>
-    <?= form_open(base_url('/admin/category/delete')) ?>
+    <?= form_open(base_url('/admin/product/variant/delete')) ?>
     <input type="hidden" name="delete_id" class="delete_id" />
     <?= $this->include('Layouts\Modals\delete_Modal') ?>
     <?= form_close() ?>
