@@ -39,20 +39,41 @@ class Variant extends BaseController
         return view('Product\Variant\list_variants', $data);
     }
 
-    public function add_variant()
+    public function add_variant($id = null)
     {
+        $variant_data = [];
+        $url = '/admin/product/variant';
+
+        if ($id) {
+            try {
+                $variant_id = $this->encrypter->decrypt(decodeURL($id));
+            } catch (\CodeIgniter\Encryption\Exceptions\EncryptionException $e) {
+                echo 'Decryption error: ' . $e->getMessage();
+                exit;
+            }
+
+            $variant_data = $this->variantModel->find($variant_id);
+
+            $variant_option = $this->variantOptionModel->getVariantOptionsByVariantId($variant_data['id']);
+            $variant_data['variant_option'] = $variant_option;
+        }
+
         $data = [
             'url' => '/admin/product/variant/add',
-            'validation' => $this->validation
+            'validation' => $this->validation,
+            'variant_data' => $variant_data,
+            'url' => $id ? $url . '/edit/' . $id : $url . '/add',
         ];
 
         return view('Product\Variant\add_variants', $data);
     }
 
-    public function add_variant_data()
+
+
+    public function add_variant_data($id = null)
     {
         $post_data = $this->request->getPost();
-        $url = '/admin/product/variant/add';
+        $url = $id ? '/admin/product/variant/edit/' . $id : '/admin/product/variant/add';
 
         $variant_data = [
             'name' => $post_data['variant_name'],
@@ -68,24 +89,44 @@ class Variant extends BaseController
             return view('Product\Variant\add_variants', $data);
         }
 
-        try {
-            $this->variantModel->insert($variant_data);
-        } catch (\Exception $e) {
-            log_message('error', 'Error inserting variant: ' . $e->getMessage());
-            throw new PageNotFoundException('An error occurred while adding the variant. Please try again later.');
+        if ($id) {
+            try {
+                $variant_id = $this->encrypter->decrypt(decodeURL($id));
+            } catch (\CodeIgniter\Encryption\Exceptions\EncryptionException $e) {
+                echo 'Decryption error: ' . $e->getMessage();
+                exit;
+            }
+            try {
+                $this->variantModel->set('name', $variant_data['name']);
+                $this->variantModel->set('description', $variant_data['description']);
+                $this->variantModel->where('id', $variant_id);
+                $this->variantModel->update();
+            } catch (\Exception $e) {
+                log_message('error', 'Error Editing variant: ' . $e->getMessage());
+                throw new PageNotFoundException($e);
+            }
+            session()->setFlashdata('message', 'Category Edited Successfully');
+            return redirect()->to(base_url($url));
+        } else {
+            try {
+                $this->variantModel->insert($variant_data);
+            } catch (\Exception $e) {
+                log_message('error', 'Error inserting variant: ' . $e->getMessage());
+                throw new PageNotFoundException('An error occurred while adding the variant. Please try again later.');
+            }
+
+            $insert_id = $this->variantModel->insertID();
+
+            foreach ($post_data['select-tag'] as $value) {
+                $optionData = [
+                    'name' => $value,
+                    'variant_id' => $insert_id
+                ];
+                $this->variantOptionModel->insert($optionData);
+            }
+
+            session()->setFlashdata('message', 'Variant Added Successfully');
+            return redirect()->to(base_url($url));
         }
-
-        $insert_id = $this->variantModel->insertID();
-
-        foreach ($post_data['select-tag'] as $value) {
-            $optionData = [
-                'name' => $value,
-                'variant_id' => $insert_id
-            ];
-            $this->variantOptionModel->insert($optionData);
-        }
-
-        session()->setFlashdata('message', 'Variant Added Successfully');
-        return redirect()->to(base_url($url));
     }
 }

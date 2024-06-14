@@ -39,4 +39,15 @@ class VariantOption extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getVariantOptionsByVariantId($id)
+    {
+        $result = $this->db->table('variant_option')
+            ->select('id, name')
+            ->where('variant_id', $id)
+            ->get()
+            ->getResultArray();
+
+        return $result;
+    }
 }

@@ -46,8 +46,12 @@ $routes->group('admin', static function ($routes) {
     $routes->group('product', static function ($routes) {
         $routes->group('variant', static function ($routes) {
             $routes->get('get', 'Product\Variant::index', ['filter' => 'adminAuth']);
+
             $routes->get('add', 'Product\Variant::add_variant', ['filter' => 'adminAuth']);
             $routes->post('add', 'Product\Variant::add_variant_data', ['filter' => 'adminAuth']);
+
+            $routes->get('edit/(:segment)', 'Product\Variant::add_variant/$1', ['filter' => 'adminAuth']);
+            $routes->post('edit/(:segment)', 'Product\Variant::add_variant_data/$1', ['filter' => 'adminAuth']);
         });
     });
 });

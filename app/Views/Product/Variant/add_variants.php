@@ -47,18 +47,28 @@
                                 <div class="form-basic">
                                     <div class="form-group mb-25">
                                         <label>Variant Name</label>
-                                        <input class="form-control form-control-lg" type="text" name="variant_name" placeholder="Variant name" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('variant_name', $category_data['name']) : set_value('variant_name') ?>">
+                                        <input class="form-control form-control-lg" type="text" name="variant_name" placeholder="Variant name" value="<?= isset($variant_data) && count($variant_data) > 0 ? set_value('variant_name', $variant_data['name']) : set_value('variant_name') ?>">
                                         <span class="help-block"><?= $validation->showError('variant_name') ?></span>
                                     </div>
                                     <div class="form-group mb-25">
                                         <label>Variant Description</label>
-                                        <input class="form-control form-control-lg" type="text" name="variant_description" placeholder="Variant Description" value="<?= isset($category_data) && count($category_data) > 0 ? set_value('variant_description', $category_data['variant_description']) : set_value('variant_description') ?>">
+                                        <input class="form-control form-control-lg" type="text" name="variant_description" placeholder="Variant Description" value="<?= isset($variant_data) && count($variant_data) > 0 ? set_value('variant_description', $variant_data['description']) : set_value('variant_description') ?>">
                                         <span class="help-block"><?= $validation->showError('variant_description') ?></span>
                                     </div>
                                     <div class="dm-tag-mode form-group mb-25">
                                         <label>Variant Options</label>
                                         <div class="dm-select">
                                             <select name="select-tag[]" id="variant-option" class="form-control form-control-lg" multiple="multiple">
+                                                <?php
+                                                if (isset($variant_data) && count($variant_data) > 0 && count($variant_data['variant_option']) > 0) {
+
+                                                    foreach ($variant_data['variant_option'] as $value) {
+                                                ?>
+                                                        <option value="<?= $value['id'] ?>" selected><?= $value['name'] ?></option>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
