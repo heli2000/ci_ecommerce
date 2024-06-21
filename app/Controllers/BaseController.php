@@ -11,6 +11,11 @@ use Psr\Log\LoggerInterface;
 use App\Models\User\UserModel;
 use App\Models\Product\Variants;
 use App\Models\Product\VariantOption;
+use App\Models\Product\Product;
+use App\Models\Product\Keywords;
+use App\Models\Product\ProductImages;
+use App\Models\Product\ProductKeyword;
+use App\Models\Product\ProductVariant;
 use App\Models\User\Otp;
 use App\Controllers\UserAuth\EmailController;
 
@@ -41,6 +46,12 @@ abstract class BaseController extends Controller
     protected $encrypter;
     protected $pager;
     protected $emailController;
+    protected $productModel;
+    protected $keywordModel;
+    protected $productImagesModel;
+    protected $productKeywordModel;
+    protected $productVariantModel;
+
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
@@ -72,6 +83,11 @@ abstract class BaseController extends Controller
         $this->variantOptionModel = new VariantOption();
         $this->otpModel = new Otp();
         $this->emailController = new EmailController();
+        $this->productModel = new Product();
+        $this->keywordModel = new Keywords();
+        $this->productImagesModel = new ProductImages();
+        $this->productKeywordModel = new ProductKeyword();
+        $this->productVariantModel = new ProductVariant();
         // Preload any models, libraries, etc, here.
     }
 }
