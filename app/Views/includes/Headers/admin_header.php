@@ -234,6 +234,9 @@
                             <span class="toggle-icon"></span>
                         </a>
                         <ul>
+                            <li class="<?= current_url() == base_url('admin/product/add') ? 'active' : '' ?>">
+                                <a href="<?= base_url('admin/product/add') ?>">Add Product</a>
+                            </li>
                             <li class="<?= current_url() == base_url('admin/product/variant/get') ? 'active' : '' ?>">
                                 <a href="<?= base_url('admin/product/variant/get') ?>">Variants</a>
                             </li>
